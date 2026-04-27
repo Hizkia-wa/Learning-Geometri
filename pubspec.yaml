@@ -13,6 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.8
   syncfusion_flutter_pdfviewer: ^33.2.3
+  flutter_cube: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,4 @@ flutter:
   assets:
     - assets/images/
     - assets/pdf/
+    - assets/cube/
