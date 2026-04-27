@@ -2,15 +2,13 @@ class Materi {
   final String id;
   final String judul;
   final String deskripsi;
-  final String isi;
-  final String gambar;
+  final String pdfPath;
 
   Materi({
     required this.id,
     required this.judul,
     required this.deskripsi,
-    required this.isi,
-    required this.gambar,
+    required this.pdfPath,
   });
 }
 
@@ -19,15 +17,12 @@ final List<Materi> daftarMateri = [
     id: "1",
     judul: "Kubus",
     deskripsi: "Mengenal sifat, luas permukaan, dan volume kubus.",
-    isi: "Kubus adalah bangun ruang tiga dimensi yang dibatasi oleh enam bidang sisi yang kongruen berbentuk bujur sangkar...",
-    gambar: "assets/images/kubus.png",
+    pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
   ),
   Materi(
     id: "2",
     judul: "Balok",
     deskripsi: "Mempelajari struktur balok dan rumusnya.",
-    isi: "Balok adalah bangun ruang tiga dimensi yang dibentuk oleh tiga pasang persegi atau persegi panjang...",
-    gambar: "assets/images/balok.png",
+    pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
   ),
-  // Tambahkan materi lainnya di sini
 ];

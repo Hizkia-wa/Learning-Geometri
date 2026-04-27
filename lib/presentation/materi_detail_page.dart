@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../data/materi_data.dart';
-import '../data/data_detail_materi.dart'; // Import data detail relasional
 
 class MateriDetailPage extends StatelessWidget {
   final Materi materi;
@@ -9,96 +9,272 @@ class MateriDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Mencari data detail berdasarkan idMateri
-    final detail = daftarDetailMateri.firstWhere(
-      (element) => element.idMateri == materi.id,
-      orElse: () => DetailMateri(
-        id: "",
-        idMateri: "",
-        rumus: "Data tidak tersedia",
-        luasPermukaan: "-",
-        volume: "-",
-        contohSoal: "-",
-        sifatSifat: [],
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(materi.judul, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          materi.judul,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color(0xFF17AEBF),
         foregroundColor: Colors.white,
-        elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header Image (Bisa pakai placeholder jika asset belum ada)
-            Container(
-              height: 200,
-              width: double.infinity,
-              color: const Color(0xFF17AEBF).withValues(alpha: 0.1),
-              child: const Icon(Icons.image, size: 100, color: Color(0xFF17AEBF)),
-            ),
-            
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("Definisi", 
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF17AEBF))),
-                  const SizedBox(height: 10),
-                  Text(materi.isi, style: const TextStyle(fontSize: 15, height: 1.6)),
-                  
-                  const SizedBox(height: 25),
-                  const Text("Sifat-Sifat", 
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF17AEBF))),
-                  const SizedBox(height: 10),
-                  // Menampilkan List Sifat
-                  ...detail.sifatSifat.map((s) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.check_circle, color: Colors.green, size: 20),
-                        const SizedBox(width: 10),
-                        Text(s, style: const TextStyle(fontSize: 15)),
-                      ],
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              // Header
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                color: const Color(0xFF17AEBF).withOpacity(0.1),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      materi.judul,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  )).toList(),
-
-                  const SizedBox(height: 25),
-                  _buildRumusBox("Rumus Volume", detail.volume, detail.rumus),
-                  const SizedBox(height: 15),
-                  _buildRumusBox("Luas Permukaan", "Total Luas Sisi", detail.luasPermukaan),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      materi.deskripsi,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
               ),
+
+              // PDF
+              Expanded(
+                child: SfPdfViewer.asset(
+                  materi.pdfPath,
+                  onDocumentLoadFailed: (details) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Gagal Memuat PDF'),
+                        content: Text(
+                          'Error: ${details.error}\nPath: ${materi.pdfPath}',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('OK'),
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+
+          // 🔥 Floating Menu
+          _FloatingMenu(materi: materi),
+        ],
+      ),
+    );
+  }
+}
+
+//
+// 🔥 FLOATING MENU EXPANDABLE
+//
+class _FloatingMenu extends StatefulWidget {
+  final Materi materi;
+
+  const _FloatingMenu({required this.materi});
+
+  @override
+  State<_FloatingMenu> createState() => _FloatingMenuState();
+}
+
+class _FloatingMenuState extends State<_FloatingMenu>
+    with SingleTickerProviderStateMixin {
+  bool isOpen = false;
+
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 250),
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+  }
+
+  void toggle() {
+    setState(() {
+      isOpen = !isOpen;
+      isOpen ? _controller.forward() : _controller.reverse();
+    });
+  }
+
+  Widget fab({
+    required IconData icon,
+    required Color color,
+    required String tag,
+    required VoidCallback onPressed,
+  }) {
+    return FloatingActionButton(
+      heroTag: tag,
+      backgroundColor: color,
+      mini: true,
+      onPressed: onPressed,
+      child: Icon(icon),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 16,
+      bottom: 16,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SizeTransition(
+            sizeFactor: _animation,
+            axis: Axis.vertical,
+            child: Column(
+              children: [
+                fab(
+                  icon: Icons.edit,
+                  color: Colors.orange,
+                  tag: "latihan",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlaceholderPage(
+                          title: "Latihan Soal",
+                          materi: widget.materi,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+
+                fab(
+                  icon: Icons.quiz,
+                  color: Colors.purple,
+                  tag: "kuis",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlaceholderPage(
+                          title: "Kuis",
+                          materi: widget.materi,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+
+                fab(
+                  icon: Icons.view_in_ar,
+                  color: Colors.blue,
+                  tag: "3d",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlaceholderPage(
+                          title: "3D Model",
+                          materi: widget.materi,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+
+                fab(
+                  icon: Icons.camera_alt,
+                  color: Colors.green,
+                  tag: "ar",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const ARPage(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
-          ],
+          ),
+
+          // MAIN BUTTON
+          FloatingActionButton(
+            heroTag: "main",
+            backgroundColor: const Color(0xFF17AEBF),
+            onPressed: toggle,
+            child: AnimatedIcon(
+              icon: AnimatedIcons.menu_close,
+              progress: _animation,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+//
+// 🔥 Placeholder Pages
+//
+class PlaceholderPage extends StatelessWidget {
+  final String title;
+  final Materi materi;
+
+  const PlaceholderPage({
+    super.key,
+    required this.title,
+    required this.materi,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("$title - ${materi.judul}"),
+        backgroundColor: const Color(0xFF17AEBF),
+      ),
+      body: Center(
+        child: Text(
+          "$title untuk ${materi.judul}",
+          style: const TextStyle(fontSize: 18),
         ),
       ),
     );
   }
+}
 
-  Widget _buildRumusBox(String title, String desc, String formula) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: const Color(0xFFDCFCE7).withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF17AEBF).withValues(alpha: 0.2)),
+class ARPage extends StatelessWidget {
+  const ARPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("AR Camera"),
+        backgroundColor: Colors.green,
       ),
-      child: Column(
-        children: [
-          Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          Text(desc, style: const TextStyle(fontSize: 12, color: Colors.black54)),
-          const SizedBox(height: 10),
-          Text(formula, 
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF17AEBF))),
-        ],
+      body: const Center(
+        child: Text("Halaman AR Camera"),
       ),
     );
   }
