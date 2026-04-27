@@ -1,0 +1,134 @@
+[
+  {
+    "id": "ls_001",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Sebuah kubus memiliki panjang rusuk 5 cm. Berapakah volume kubus tersebut?",
+    "satuan": "cm³",
+    "jawabanBenar": 125.0,
+    "toleransi": 0.1,
+    "rumus": "V = s³",
+    "pembahasan": "V = s³ = 5³ = 5 × 5 × 5 = 125 cm³"
+  },
+  {
+    "id": "ls_002",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Sebuah kubus memiliki panjang rusuk 4 cm. Berapakah luas permukaan kubus tersebut?",
+    "satuan": "cm²",
+    "jawabanBenar": 96.0,
+    "toleransi": 0.1,
+    "rumus": "L = 6s²",
+    "pembahasan": "L = 6s² = 6 × 4² = 6 × 16 = 96 cm²"
+  },
+  {
+    "id": "ls_003",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Sebuah kubus memiliki panjang rusuk 3 cm. Berapakah luas permukaan kubus tersebut?",
+    "satuan": "cm²",
+    "jawabanBenar": 54.0,
+    "toleransi": 0.1,
+    "rumus": "L = 6s²",
+    "pembahasan": "L = 6s² = 6 × 3² = 6 × 9 = 54 cm²"
+  },
+  {
+    "id": "ls_004",
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Sebuah balok berukuran panjang 8 cm, lebar 5 cm, dan tinggi 3 cm. Berapakah volumenya?",
+    "satuan": "cm³",
+    "jawabanBenar": 120.0,
+    "toleransi": 0.1,
+    "rumus": "V = p × l × t",
+    "pembahasan": "V = p × l × t = 8 × 5 × 3 = 120 cm³"
+  },
+  {
+    "id": "ls_005",
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Sebuah balok memiliki panjang 10 cm, lebar 4 cm, tinggi 5 cm. Berapakah luas permukaannya?",
+    "satuan": "cm²",
+    "jawabanBenar": 220.0,
+    "toleransi": 0.1,
+    "rumus": "L = 2(pl + pt + lt)",
+    "pembahasan": "L = 2(10×4 + 10×5 + 4×5) = 2(40 + 50 + 20) = 2 × 110 = 220 cm²"
+  },
+  {
+    "id": "ls_006",
+    "topikId": "3",
+    "topik": "Prisma",
+    "pertanyaan": "Prisma segitiga dengan alas segitiga (alas=6 cm, tinggi segitiga=4 cm) dan tinggi prisma 10 cm. Berapakah volumenya?",
+    "satuan": "cm³",
+    "jawabanBenar": 120.0,
+    "toleransi": 0.1,
+    "rumus": "V = L.alas × t",
+    "pembahasan": "L.alas = ½ × 6 × 4 = 12 cm²\nV = 12 × 10 = 120 cm³"
+  },
+  {
+    "id": "ls_007",
+    "topikId": "4",
+    "topik": "Limas",
+    "pertanyaan": "Limas segiempat dengan alas 6×6 cm dan tinggi 9 cm. Berapakah volumenya?",
+    "satuan": "cm³",
+    "jawabanBenar": 108.0,
+    "toleransi": 0.1,
+    "rumus": "V = ⅓ × L.alas × t",
+    "pembahasan": "V = ⅓ × (6 × 6) × 9 = ⅓ × 36 × 9 = 108 cm³"
+  },
+  {
+    "id": "ls_008",
+    "topikId": "5",
+    "topik": "Tabung",
+    "pertanyaan": "Tabung memiliki jari-jari 7 cm dan tinggi 10 cm. Berapakah volumenya? (π = 3.14)",
+    "satuan": "cm³",
+    "jawabanBenar": 1538.6,
+    "toleransi": 1.0,
+    "rumus": "V = π × r² × t",
+    "pembahasan": "V = 3.14 × 7² × 10 = 3.14 × 49 × 10 = 1538.6 cm³"
+  },
+  {
+    "id": "ls_009",
+    "topikId": "5",
+    "topik": "Tabung",
+    "pertanyaan": "Tabung memiliki jari-jari 5 cm dan tinggi 12 cm. Berapakah luas permukaannya? (π = 3.14)",
+    "satuan": "cm²",
+    "jawabanBenar": 533.8,
+    "toleransi": 1.0,
+    "rumus": "L = 2πr(r + t)",
+    "pembahasan": "L = 2 × 3.14 × 5 × (5 + 12) = 31.4 × 17 = 533.8 cm²"
+  },
+  {
+    "id": "ls_010",
+    "topikId": "6",
+    "topik": "Kerucut",
+    "pertanyaan": "Kerucut memiliki jari-jari 6 cm dan tinggi 8 cm. Berapakah volumenya? (π = 3.14)",
+    "satuan": "cm³",
+    "jawabanBenar": 301.44,
+    "toleransi": 1.0,
+    "rumus": "V = ⅓ × π × r² × t",
+    "pembahasan": "V = ⅓ × 3.14 × 36 × 8 = ⅓ × 904.32 = 301.44 cm³"
+  },
+  {
+    "id": "ls_011",
+    "topikId": "7",
+    "topik": "Bola",
+    "pertanyaan": "Sebuah bola memiliki jari-jari 6 cm. Berapakah volumenya? (π = 3.14)",
+    "satuan": "cm³",
+    "jawabanBenar": 904.32,
+    "toleransi": 1.0,
+    "rumus": "V = 4/3 × π × r³",
+    "pembahasan": "V = 4/3 × 3.14 × 216 = 904.32 cm³"
+  },
+  {
+    "id": "ls_012",
+    "topikId": "7",
+    "topik": "Bola",
+    "pertanyaan": "Sebuah bola memiliki jari-jari 7 cm. Berapakah luas permukaannya? (π = 3.14)",
+    "satuan": "cm²",
+    "jawabanBenar": 615.44,
+    "toleransi": 1.0,
+    "rumus": "L = 4 × π × r²",
+    "pembahasan": "L = 4 × 3.14 × 49 = 615.44 cm²"
+  }
+]

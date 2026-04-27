@@ -28,7 +28,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'sans-serif', // Gunakan font bawaan yang bersih
       ),
-      home: const Dashboard(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Dashboard(),
+      },
     );
   }
 }

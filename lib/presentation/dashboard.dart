@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'materi_page.dart'; // <--- Pastikan file ini sudah ada
+import 'kuis_topik_page.dart';
+import 'latihan_topik_page.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -130,14 +132,30 @@ class Dashboard extends StatelessWidget {
                 },
               ),
               _buildActionItem(Icons.account_tree_outlined, "Peta Konsep", Colors.teal),
-              _buildActionItem(Icons.quiz_outlined, "Kuis Teori", Colors.orange),
+              _buildActionItem(
+                Icons.quiz_outlined, 
+                "Kuis Teori", 
+                Colors.orange,
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const KuisTopikPage()),
+                  ),
+              ),
             ],
           ),
           const SizedBox(height: 25),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildActionItem(Icons.edit_note_rounded, "Latihan", Colors.redAccent),
+              _buildActionItem(
+                Icons.edit_note_rounded, 
+                "Latihan", 
+                Colors.redAccent,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LatihanTopikPage()),
+                  ),
+                ),
               _buildActionItem(Icons.auto_awesome, "AI Solver", Colors.purple),
               _buildActionItem(Icons.view_in_ar_rounded, "AR View", Colors.indigo),
             ],

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "kt_001",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Berapa banyak sisi yang dimiliki kubus?",
+    "pilihan": ["4", "5", "6", "8"],
+    "jawabanIndex": 2,
+    "pembahasan": "Kubus memiliki 6 sisi berbentuk persegi yang kongruen."
+  },
+  {
+    "id": "kt_002",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Berapa banyak rusuk yang dimiliki kubus?",
+    "pilihan": ["8", "10", "12", "16"],
+    "jawabanIndex": 2,
+    "pembahasan": "Kubus memiliki 12 rusuk dengan panjang yang sama."
+  },
+  {
+    "id": "kt_003",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Berapa banyak titik sudut pada kubus?",
+    "pilihan": ["4", "6", "8", "10"],
+    "jawabanIndex": 2,
+    "pembahasan": "Kubus memiliki 8 titik sudut di setiap pojok bangun."
+  },
+  {
+    "id": "kt_004",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Rumus volume kubus dengan panjang rusuk s adalah...",
+    "pilihan": ["s²", "3s", "s³", "6s²"],
+    "jawabanIndex": 2,
+    "pembahasan": "Volume kubus = s³ (sisi dipangkatkan tiga)."
+  },
+  {
+    "id": "kt_005",
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Rumus luas permukaan kubus adalah...",
+    "pilihan": ["4s²", "6s²", "s³", "2s²"],
+    "jawabanIndex": 1,
+    "pembahasan": "Luas permukaan kubus = 6s² karena kubus punya 6 sisi berbentuk persegi."
+  },
+  {
+    "id": "kt_006",
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Berapa banyak sisi yang dimiliki balok?",
+    "pilihan": ["4", "6", "8", "12"],
+    "jawabanIndex": 1,
+    "pembahasan": "Balok memiliki 6 sisi, terdiri dari 3 pasang sisi yang berhadapan dan kongruen."
+  },
+  {
+    "id": "kt_007",
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Rumus volume balok adalah...",
+    "pilihan": ["p + l + t", "2(pl + pt + lt)", "p × l × t", "p × l"],
+    "jawabanIndex": 2,
+    "pembahasan": "Volume balok = p × l × t (panjang dikali lebar dikali tinggi)."
+  },
+  {
+    "id": "kt_008",
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Rumus luas permukaan balok adalah...",
+    "pilihan": ["p × l × t", "2(pl + pt + lt)", "6s²", "pl + lt"],
+    "jawabanIndex": 1,
+    "pembahasan": "Luas permukaan balok = 2(pl + pt + lt)."
+  },
+  {
+    "id": "kt_009",
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Balok memiliki berapa rusuk?",
+    "pilihan": ["8", "10", "12", "6"],
+    "jawabanIndex": 2,
+    "pembahasan": "Balok memiliki 12 rusuk, terdiri dari 3 kelompok rusuk yang sejajar."
+  },
+  {
+    "id": "kt_010",
+    "topikId": "3",
+    "topik": "Prisma",
+    "pertanyaan": "Prisma segitiga memiliki berapa sisi?",
+    "pilihan": ["3", "4", "5", "6"],
+    "jawabanIndex": 2,
+    "pembahasan": "Prisma segitiga memiliki 5 sisi: 2 segitiga (alas & tutup) + 3 persegi panjang."
+  },
+  {
+    "id": "kt_011",
+    "topikId": "3",
+    "topik": "Prisma",
+    "pertanyaan": "Rumus volume prisma adalah...",
+    "pilihan": ["L.alas + t", "L.alas × t", "⅓ × L.alas × t", "2 × L.alas"],
+    "jawabanIndex": 1,
+    "pembahasan": "Volume prisma = Luas alas × tinggi prisma."
+  },
+  {
+    "id": "kt_012",
+    "topikId": "4",
+    "topik": "Limas",
+    "pertanyaan": "Limas segiempat memiliki berapa sisi segitiga?",
+    "pilihan": ["2", "3", "4", "5"],
+    "jawabanIndex": 2,
+    "pembahasan": "Limas segiempat memiliki 4 sisi segitiga sebagai sisi tegak."
+  },
+  {
+    "id": "kt_013",
+    "topikId": "4",
+    "topik": "Limas",
+    "pertanyaan": "Rumus volume limas adalah...",
+    "pilihan": ["L.alas × t", "½ × L.alas × t", "⅓ × L.alas × t", "2 × L.alas × t"],
+    "jawabanIndex": 2,
+    "pembahasan": "Volume limas = ⅓ × Luas alas × tinggi."
+  },
+  {
+    "id": "kt_014",
+    "topikId": "5",
+    "topik": "Tabung",
+    "pertanyaan": "Tabung memiliki berapa sisi lengkung?",
+    "pilihan": ["0", "1", "2", "3"],
+    "jawabanIndex": 1,
+    "pembahasan": "Tabung memiliki 1 sisi lengkung (selimut) dan 2 sisi datar berbentuk lingkaran."
+  },
+  {
+    "id": "kt_015",
+    "topikId": "5",
+    "topik": "Tabung",
+    "pertanyaan": "Rumus volume tabung adalah...",
+    "pilihan": ["π × r × t", "π × r² × t", "2π × r × t", "⅓ × π × r² × t"],
+    "jawabanIndex": 1,
+    "pembahasan": "Volume tabung = π × r² × t."
+  },
+  {
+    "id": "kt_016",
+    "topikId": "6",
+    "topik": "Kerucut",
+    "pertanyaan": "Bagian paling atas kerucut disebut...",
+    "pilihan": ["Rusuk", "Alas", "Titik puncak", "Selimut"],
+    "jawabanIndex": 2,
+    "pembahasan": "Bagian paling atas kerucut disebut titik puncak atau apex."
+  },
+  {
+    "id": "kt_017",
+    "topikId": "6",
+    "topik": "Kerucut",
+    "pertanyaan": "Rumus volume kerucut adalah...",
+    "pilihan": ["π × r² × t", "½ × π × r² × t", "⅓ × π × r² × t", "2 × π × r × t"],
+    "jawabanIndex": 2,
+    "pembahasan": "Volume kerucut = ⅓ × π × r² × t."
+  },
+  {
+    "id": "kt_018",
+    "topikId": "7",
+    "topik": "Bola",
+    "pertanyaan": "Bola memiliki berapa titik sudut?",
+    "pilihan": ["0", "1", "2", "Tak terhingga"],
+    "jawabanIndex": 0,
+    "pembahasan": "Bola tidak memiliki titik sudut, rusuk, maupun sisi datar."
+  },
+  {
+    "id": "kt_019",
+    "topikId": "7",
+    "topik": "Bola",
+    "pertanyaan": "Rumus volume bola adalah...",
+    "pilihan": ["π × r²", "4 × π × r²", "⅔ × π × r³", "4/3 × π × r³"],
+    "jawabanIndex": 3,
+    "pembahasan": "Volume bola = 4/3 × π × r³."
+  },
+  {
+    "id": "kt_020",
+    "topikId": "7",
+    "topik": "Bola",
+    "pertanyaan": "Rumus luas permukaan bola adalah...",
+    "pilihan": ["π × r²", "2 × π × r²", "4 × π × r²", "⅔ × π × r²"],
+    "jawabanIndex": 2,
+    "pembahasan": "Luas permukaan bola = 4 × π × r²."
+  }
+]
