@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../data/materi_data.dart';
+import 'cube_3d_page.dart';
 
 class MateriDetailPage extends StatelessWidget {
   final Materi materi;
@@ -189,10 +190,7 @@ class _FloatingMenuState extends State<_FloatingMenu>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => PlaceholderPage(
-                          title: "3D Model",
-                          materi: widget.materi,
-                        ),
+                        builder: (_) => const Cube3DPage(),
                       ),
                     );
                   },
