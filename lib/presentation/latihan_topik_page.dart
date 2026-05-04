@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/materi_data.dart';
 import 'latihan_soal_page.dart';
+import 'ai_solution_page.dart';
 
 class LatihanTopikPage extends StatelessWidget {
   const LatihanTopikPage({super.key});
@@ -32,6 +33,33 @@ class LatihanTopikPage extends StatelessWidget {
             child: const Text(
               'Pilih topik yang ingin kamu latih perhitungannya',
               style: TextStyle(color: Colors.white70, fontSize: 13),
+            ),
+          ),
+
+          // AI Solver quick access button
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AiSolutionPage()),
+                  );
+                },
+                icon: const Icon(Icons.auto_awesome, size: 18),
+                label: const Text('Tanya AI tentang Geometri'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
+                ),
+              ),
             ),
           ),
 

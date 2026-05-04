@@ -332,6 +332,7 @@ class _KuisTeoriPageState extends State<KuisTeoriPage> {
 
   Widget _buildPembahasan(String pembahasan) {
     final benar = _selectedIndex == _soalList[_currentIndex].jawabanIndex;
+    final soal = _soalList[_currentIndex];
     return Container(
       margin: const EdgeInsets.only(top: 8),
       padding: const EdgeInsets.all(16),
@@ -369,6 +370,28 @@ class _KuisTeoriPageState extends State<KuisTeoriPage> {
               fontSize: 13,
               color: benar ? Colors.green.shade800 : Colors.orange.shade900,
               height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () {
+                final userIndex = _selectedIndex ?? -1;
+                final jawabanUser = userIndex >= 0 && userIndex < soal.pilihan.length
+                    ? '${String.fromCharCode(65 + userIndex)}. ${soal.pilihan[userIndex]}'
+                    : '-';
+                final jawabanKunci =
+                    '${String.fromCharCode(65 + soal.jawabanIndex)}. ${soal.pilihan[soal.jawabanIndex]}';
+
+                
+              },
+              icon: const Icon(Icons.auto_awesome),
+              label: const Text('Lihat Pembahasan AI'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: primaryColor,
+                side: BorderSide(color: primaryColor.withValues(alpha: 0.5)),
+              ),
             ),
           ),
         ],

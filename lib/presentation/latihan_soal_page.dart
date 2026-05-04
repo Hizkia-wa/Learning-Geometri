@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../data/soal_latihan_model.dart';
+import 'ai_solution_page.dart';
 
 class LatihanSoalPage extends StatefulWidget {
   final String topikId;
@@ -27,6 +28,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   bool _isLoading = true;
   int _skorBenar = 0;
   String? _errorMsg;
+  String _jawabanUserTerakhir = '-';
 
   final _controller = TextEditingController();
   final _focusNode = FocusNode(); // TAMBAH KEMBALI
@@ -76,6 +78,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
     _focusNode.unfocus(); // pakai focusNode
     final benar = _soalList[_currentIndex].cekJawaban(nilai);
     setState(() {
+      _jawabanUserTerakhir = input;
       _sudahJawab = true;
       _jawabanBenar = benar;
       if (benar) _skorBenar++;
@@ -88,6 +91,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
         _currentIndex++;
         _sudahJawab = false;
         _jawabanBenar = false;
+        _jawabanUserTerakhir = '-';
         _controller.clear();
       });
       // Request focus setelah frame selesai render
@@ -424,6 +428,38 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
               fontSize: 13,
               height: 1.6,
               color: Colors.black87,
+            ),
+          ),
+          const SizedBox(height: 14),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => AiSolutionPage(
+                      topik: soal.topik,
+                      pertanyaan: soal.pertanyaan,
+                      jawabanBenar: '${soal.jawabanBenar} ${soal.satuan}',
+                      jawabanPengguna: '$_jawabanUserTerakhir ${soal.satuan}',
+                      jawabanBenarFlag: _jawabanBenar,
+                      pembahasanAsli: soal.pembahasan,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.auto_awesome, size: 18),
+              label: const Text('Lihat Pembahasan AI'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 0,
+              ),
             ),
           ),
         ],

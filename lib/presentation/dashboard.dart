@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'materi_page.dart'; // <--- Pastikan file ini sudah ada
 import 'kuis_topik_page.dart';
 import 'latihan_topik_page.dart';
+import 'ai_solution_page.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -156,7 +157,15 @@ class Dashboard extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const LatihanTopikPage()),
                   ),
                 ),
-              _buildActionItem(Icons.auto_awesome, "AI Solver", Colors.purple),
+              _buildActionItem(
+                Icons.auto_awesome,
+                "AI Solver",
+                Colors.purple,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AiSolutionPage()),
+                ),
+              ),
               _buildActionItem(Icons.view_in_ar_rounded, "AR View", Colors.indigo),
             ],
           ),
