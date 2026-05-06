@@ -4,6 +4,7 @@ import 'materi_page.dart'; // <--- Pastikan file ini sudah ada
 import 'kuis_topik_page.dart';
 import 'latihan_topik_page.dart';
 import 'ai_solution_page.dart';
+import 'peta_konsep_page.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -132,7 +133,7 @@ class Dashboard extends StatelessWidget {
                   );
                 },
               ),
-              _buildActionItem(Icons.account_tree_outlined, "Peta Konsep", Colors.teal),
+              _buildActionItem(Icons.account_tree_outlined, "Peta Konsep", Colors.teal, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PetaKonsepPage()))),
               _buildActionItem(
                 Icons.quiz_outlined, 
                 "Kuis Teori", 
