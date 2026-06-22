@@ -38,6 +38,9 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
     super.initState();
     if (widget.pertanyaan != null) {
       _sendInitialQuestion();
+    } else {
+      _gemini.initChat(systemInstruction: "Kamu adalah AI asisten pintar dan ramah. Bantu pengguna dengan pertanyaan apa pun.");
+      _messages.add({"role": "bot", "text": "Halo! Saya adalah AI Asisten. Ada yang bisa saya bantu hari ini?"});
     }
   }
 
@@ -47,17 +50,20 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
     _hasAskedInitial = true;
 
     final initialPrompt =
-        "Jelaskan cara menyelesaikan soal ini dengan detail: ${widget.pertanyaan}. Jawaban yang benar adalah ${widget.jawabanBenar}. Siswa menjawab ${widget.jawabanPengguna}. ${!widget.jawabanBenarFlag ? 'Siswa menjawab salah, tolong jelaskan kesalahan dan cara yang benar.' : 'Jawaban siswa benar!'}";
+        "Konteks:\nTopik: ${widget.topik}\nSoal: ${widget.pertanyaan}\nJawaban benar: ${widget.jawabanBenar}\nJawaban siswa: ${widget.jawabanPengguna}\nPembahasan standar: ${widget.pembahasanAsli}\n\n"
+        "Tolong jelaskan cara menyelesaikan soal ini dengan detail. ${!widget.jawabanBenarFlag ? 'Siswa menjawab salah, tolong jelaskan kesalahan dan cara yang benar.' : 'Jawaban siswa benar!'}";
+
+    _gemini.initChat(systemInstruction: "Kamu adalah tutor cerdas dan asisten serba bisa yang membantu pengguna memahami pelajaran atau menjawab pertanyaan umum lainnya.");
 
     if (mounted) {
       setState(() {
-        _messages.add({"role": "user", "text": "Jelaskan soal ini untuk saya"});
+        _messages.add({"role": "user", "text": "Tolong jelaskan soal ini untuk saya."});
         _isLoading = true;
       });
     }
 
     try {
-      final reply = await _gemini.generateResponse(initialPrompt);
+      final reply = await _gemini.sendMessage(initialPrompt);
 
       if (mounted) {
         setState(() {
@@ -89,12 +95,8 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
       _controller.clear();
     });
 
-    final context = widget.pertanyaan != null
-        ? "Konteks: Topik: ${widget.topik}, Soal: ${widget.pertanyaan}, Jawaban benar: ${widget.jawabanBenar}, Jawaban siswa: ${widget.jawabanPengguna}. Pembahasan standar: ${widget.pembahasanAsli}."
-        : "Kamu adalah AI tutor geometri. Jelaskan langkah demi langkah, sertakan rumus, dan gunakan bahasa sederhana.";
-
     try {
-      final reply = await _gemini.generateResponse("$context\n\nPertanyaan siswa: $input");
+      final reply = await _gemini.sendMessage(input);
 
       if (mounted) {
         setState(() {

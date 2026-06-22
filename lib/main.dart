@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'presentation/dashboard.dart'; // Import file dashboardmu
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
-  // Mengatur agar status bar (jam & baterai) transparan di atas header biru
+// Import file dashboard
+import 'presentation/dashboard.dart';
+
+Future<void> main() async {
+  // Pastikan binding diinisialisasi sebelum memanggil plugin (dotenv/SystemChrome)
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (_) {
+    // Jika .env tidak ikut ter-bundle, aplikasi tetap lanjut jalan.
+  }
+
+  // Konfigurasi Status Bar (Jam & Baterai) agar transparan
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
   ));
+
   runApp(const MyApp());
 }
 
@@ -19,15 +33,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Learning Geometri',
+      
+      // Konfigurasi Tema
       theme: ThemeData(
-        // Menggunakan palet warna yang kamu berikan
+        useMaterial3: true,
+        fontFamily: 'sans-serif',
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF17AEBF),
           primary: const Color(0xFF17AEBF),
         ),
-        useMaterial3: true,
-        fontFamily: 'sans-serif', // Gunakan font bawaan yang bersih
       ),
+
+      // Navigasi
       initialRoute: '/',
       routes: {
         '/': (context) => const Dashboard(),

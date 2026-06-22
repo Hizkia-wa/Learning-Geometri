@@ -1,102 +1,41 @@
-import 'dart:convert';
-import 'dart:async';
-import 'package:http/http.dart' as http;
-import 'dart:developer' as developer;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
 
 class GeminiService {
-  // 🔑 GANTI DENGAN API KEY BARU KAMU
-  final String apiKey = "AIzaSyBKFXGoO3DYDw8jdNV0KB56DLgOPKwY79o";
+  ChatSession? _chatSession;
 
-  static const int timeoutSeconds = 20;
-
-  Future<String> generateResponse(String question) async {
-    try {
-      final url = Uri.parse(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=$apiKey",
-      );
-
-      developer.log("REQUEST URL: $url");
-
-      final response = await http
-          .post(
-            url,
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: jsonEncode({
-              "contents": [
-                {
-                  "parts": [
-                    {
-                      "text": """
-Kamu adalah AI tutor geometri.
-
-Aturan:
-- HANYA jawab soal geometri
-- Jelaskan langkah demi langkah
-- Sertakan rumus
-- Gunakan bahasa sederhana
-- Gunakan format:
-  1. Diketahui
-  2. Ditanya
-  3. Penyelesaian
-  4. Jawaban akhir
-
-Soal:
-$question
-"""
-                    }
-                  ]
-                }
-              ]
-            }),
-          )
-          .timeout(
-            const Duration(seconds: timeoutSeconds),
-            onTimeout: () {
-              throw TimeoutException("Request timeout");
-            },
-          );
-
-      developer.log("STATUS: ${response.statusCode}");
-      developer.log("BODY: ${response.body}");
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-
-        // 🔒 Safe parsing
-        if (data["candidates"] == null ||
-            data["candidates"].isEmpty ||
-            data["candidates"][0]["content"] == null) {
-          return "Maaf, respons AI tidak valid. Coba lagi.";
-        }
-
-        final text =
-            data["candidates"][0]["content"]["parts"][0]["text"];
-
-        return text ?? "AI tidak memberikan jawaban.";
-      }
-
-      // 🔴 QUOTA HABIS
-      else if (response.statusCode == 429) {
-        return "⚠️ Kuota API habis. Tunggu sebentar lalu coba lagi.";
-      }
-
-      // 🔴 API KEY SALAH
-      else if (response.statusCode == 401 ||
-          response.statusCode == 403) {
-        return "🔑 API Key tidak valid atau belum aktif.";
-      }
-
-      // 🔴 ERROR LAIN
-      else {
-        return "❌ Error server (${response.statusCode})";
-      }
-    } on TimeoutException {
-      return "⏱️ Request timeout. Coba lagi ya.";
-    } catch (e) {
-        print("ERROR DETAIL: $e");
-        return "Error: $e";
+  void initChat({String? systemInstruction}) {
+    final apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
+    if (apiKey.isEmpty) {
+      throw Exception('API Key Gemini tidak ditemukan. Pastikan sudah mengatur GEMINI_API_KEY di file .env.');
     }
+
+    final model = GenerativeModel(
+      model: 'gemini-2.5-flash-lite',
+      apiKey: apiKey,
+      systemInstruction: systemInstruction != null 
+          ? Content.system(systemInstruction) 
+          : null,
+    );
+
+    _chatSession = model.startChat();
+  }
+
+  Future<String> sendMessage(String text) async {
+    if (_chatSession == null) {
+      initChat();
+    }
+
+    try {
+      final response = await _chatSession!.sendMessage(Content.text(text));
+      return response.text ?? 'Maaf, saya tidak dapat memberikan respons saat ini.';
+    } catch (e) {
+      print("ERROR GEMINI: $e");
+      return "Terjadi kesalahan: $e";
+    }
+  }
+
+  void resetChat() {
+    _chatSession = null;
   }
 }
