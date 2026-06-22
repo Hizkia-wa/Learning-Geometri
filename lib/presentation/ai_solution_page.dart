@@ -1,5 +1,18 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../services/gemini_service.dart';
+
+class ChatConversation {
+  final String id;
+  String title;
+  List<Map<String, String>> messages;
+
+  ChatConversation({
+    required this.id,
+    required this.title,
+    required this.messages,
+  });
+}
 
 class AiSolutionPage extends StatefulWidget {
   final String? topik;
@@ -25,28 +38,81 @@ class AiSolutionPage extends StatefulWidget {
 
 class _AiSolutionPageState extends State<AiSolutionPage> {
   static const Color primaryColor = Color(0xFF17AEBF);
+  static final List<ChatConversation> _history = [];
 
   final TextEditingController _controller = TextEditingController();
   final GeminiService _gemini = GeminiService();
 
+  ChatConversation? _currentConversation;
   List<Map<String, String>> _messages = [];
   bool _isLoading = false;
   bool _hasAskedInitial = false;
+  StreamSubscription<String>? _streamSubscription;
 
   @override
   void initState() {
     super.initState();
-    if (widget.pertanyaan != null) {
+    _startNewConversation(isInitialContext: widget.pertanyaan != null);
+  }
+
+  void _startNewConversation({bool isInitialContext = false}) {
+    _cancelGeneration();
+    
+    final newConv = ChatConversation(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      title: isInitialContext ? (widget.topik ?? "Soal Latihan") : "Percakapan Baru",
+      messages: [],
+    );
+
+    setState(() {
+      _currentConversation = newConv;
+      _messages = newConv.messages;
+      _history.insert(0, newConv);
+      _hasAskedInitial = false;
+      _isLoading = false;
+      _controller.clear();
+    });
+
+    if (isInitialContext) {
       _sendInitialQuestion();
     } else {
       _gemini.initChat(systemInstruction: "Kamu adalah AI asisten pintar dan ramah. Bantu pengguna dengan pertanyaan apa pun.");
-      _messages.add({"role": "bot", "text": "Halo! Saya adalah AI Asisten. Ada yang bisa saya bantu hari ini?"});
+      setState(() {
+        _messages.add({"role": "bot", "text": "Halo! Saya adalah AI Asisten. Ada yang bisa saya bantu hari ini?"});
+      });
     }
   }
 
-  void _sendInitialQuestion() async {
-    if (_hasAskedInitial || widget.pertanyaan == null) return;
+  void _loadConversation(ChatConversation conv) {
+    _cancelGeneration();
+    
+    setState(() {
+      _currentConversation = conv;
+      _messages = conv.messages;
+      _isLoading = false;
+      _controller.clear();
+    });
 
+    _gemini.initChat(
+      systemInstruction: "Kamu adalah AI asisten pintar dan ramah. Bantu pengguna dengan pertanyaan apa pun.",
+      previousMessages: _messages,
+    );
+
+    Navigator.pop(context);
+  }
+
+  void _cancelGeneration() {
+    if (_streamSubscription != null) {
+      _streamSubscription!.cancel();
+      _streamSubscription = null;
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _sendInitialQuestion() {
+    if (_hasAskedInitial || widget.pertanyaan == null) return;
     _hasAskedInitial = true;
 
     final initialPrompt =
@@ -55,66 +121,69 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
 
     _gemini.initChat(systemInstruction: "Kamu adalah tutor cerdas dan asisten serba bisa yang membantu pengguna memahami pelajaran atau menjawab pertanyaan umum lainnya.");
 
-    if (mounted) {
-      setState(() {
-        _messages.add({"role": "user", "text": "Tolong jelaskan soal ini untuk saya."});
-        _isLoading = true;
-      });
-    }
+    setState(() {
+      _messages.add({"role": "user", "text": "Tolong jelaskan soal ini untuk saya."});
+      _messages.add({"role": "bot", "text": ""});
+      _isLoading = true;
+    });
 
-    try {
-      final reply = await _gemini.sendMessage(initialPrompt);
-
-      if (mounted) {
-        setState(() {
-          _messages.add({"role": "bot", "text": reply});
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _messages.add({
-            "role": "bot",
-            "text": "Error: $e"
+    _streamSubscription = _gemini.sendMessageStream(initialPrompt).listen(
+      (chunk) {
+        if (mounted) {
+          setState(() {
+            _messages.last["text"] = _messages.last["text"]! + chunk;
           });
-          _isLoading = false;
-        });
-      }
-    }
+        }
+      },
+      onDone: () {
+        if (mounted) setState(() => _isLoading = false);
+      },
+      onError: (e) {
+        if (mounted) {
+          setState(() {
+            _messages.last["text"] = "Error: $e";
+            _isLoading = false;
+          });
+        }
+      },
+    );
   }
 
-  void _sendMessage() async {
+  void _sendMessage() {
     String input = _controller.text.trim();
-    if (input.isEmpty) return;
-    if (_isLoading) return; // Prevent duplicate requests
+    if (input.isEmpty || _isLoading) return;
 
     setState(() {
       _messages.add({"role": "user", "text": input});
+      _messages.add({"role": "bot", "text": ""});
       _isLoading = true;
       _controller.clear();
+
+      if (_currentConversation != null && _currentConversation!.title == "Percakapan Baru") {
+        _currentConversation!.title = input.length > 20 ? '${input.substring(0, 20)}...' : input;
+      }
     });
 
-    try {
-      final reply = await _gemini.sendMessage(input);
-
-      if (mounted) {
-        setState(() {
-          _messages.add({"role": "bot", "text": reply});
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _messages.add({
-            "role": "bot",
-            "text": "Error: $e"
+    _streamSubscription = _gemini.sendMessageStream(input).listen(
+      (chunk) {
+        if (mounted) {
+          setState(() {
+            _messages.last["text"] = _messages.last["text"]! + chunk;
           });
-          _isLoading = false;
-        });
-      }
-    }
+        }
+      },
+      onDone: () {
+        if (mounted) setState(() => _isLoading = false);
+      },
+      onError: (e) {
+        if (mounted) {
+          setState(() {
+            _messages.last["text"] = "Error: $e";
+            _isLoading = false;
+          });
+        }
+      },
+    );
   }
 
   Widget _buildMessage(Map<String, String> msg) {
@@ -156,10 +225,70 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
         ),
         centerTitle: true,
       ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(top: 50, bottom: 20),
+              color: primaryColor,
+              child: const Column(
+                children: [
+                  Icon(Icons.auto_awesome, color: Colors.white, size: 40),
+                  SizedBox(height: 10),
+                  Text(
+                    'Riwayat Obrolan',
+                    style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.add_comment, color: primaryColor),
+              title: const Text('Percakapan Baru', style: TextStyle(fontWeight: FontWeight.bold)),
+              onTap: () {
+                Navigator.pop(context);
+                _startNewConversation(isInitialContext: false);
+              },
+            ),
+            const Divider(),
+            Expanded(
+              child: _history.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'Belum ada riwayat',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: _history.length,
+                      itemBuilder: (context, index) {
+                        final conv = _history[index];
+                        final isSelected = _currentConversation?.id == conv.id;
+                        return ListTile(
+                          leading: const Icon(Icons.chat_bubble_outline),
+                          title: Text(
+                            conv.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                              color: isSelected ? primaryColor : Colors.black87,
+                            ),
+                          ),
+                          selected: isSelected,
+                          selectedTileColor: primaryColor.withValues(alpha: 0.1),
+                          onTap: () => _loadConversation(conv),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
-          // Header dengan info soal (hanya jika ada parameter soal)
-          if (widget.pertanyaan != null)
+          if (widget.pertanyaan != null && _currentConversation?.title == (widget.topik ?? "Soal Latihan"))
             Container(
               color: primaryColor,
               padding: const EdgeInsets.all(16),
@@ -203,7 +332,6 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
               ),
             ),
 
-          // Chat messages
           Expanded(
             child: _messages.isEmpty
                 ? Center(
@@ -228,7 +356,6 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
                   ),
           ),
 
-          // Loading indicator
           if (_isLoading)
             Padding(
               padding: const EdgeInsets.all(12),
@@ -242,7 +369,6 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
               ),
             ),
 
-          // Input area
           Container(
             color: Colors.white,
             padding: const EdgeInsets.all(12),
@@ -267,19 +393,20 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
                         ),
                       ),
                       style: const TextStyle(fontSize: 13),
+                      onSubmitted: (_) => _sendMessage(),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Container(
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: _isLoading ? Colors.redAccent : primaryColor,
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
-                    icon: const Icon(Icons.send, size: 18),
+                    icon: Icon(_isLoading ? Icons.stop : Icons.send, size: 18),
                     color: Colors.white,
-                    onPressed: _isLoading ? null : _sendMessage,
+                    onPressed: _isLoading ? _cancelGeneration : _sendMessage,
                     padding: const EdgeInsets.all(8),
                     constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
                   ),
@@ -294,6 +421,7 @@ class _AiSolutionPageState extends State<AiSolutionPage> {
 
   @override
   void dispose() {
+    _cancelGeneration();
     _controller.dispose();
     super.dispose();
   }

@@ -4,7 +4,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 class GeminiService {
   ChatSession? _chatSession;
 
-  void initChat({String? systemInstruction}) {
+  void initChat({String? systemInstruction, List<Map<String, String>>? previousMessages}) {
     final apiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
     if (apiKey.isEmpty) {
       throw Exception('API Key Gemini tidak ditemukan. Pastikan sudah mengatur GEMINI_API_KEY di file .env.');
@@ -18,20 +18,40 @@ class GeminiService {
           : null,
     );
 
-    _chatSession = model.startChat();
+    List<Content>? history;
+    if (previousMessages != null && previousMessages.isNotEmpty) {
+      history = previousMessages.map((msg) {
+        if (msg['role'] == 'bot') {
+          return Content.model([TextPart(msg['text'] ?? '')]);
+        } else {
+          return Content.text(msg['text'] ?? '');
+        }
+      }).toList();
+    }
+
+    _chatSession = model.startChat(history: history);
   }
 
-  Future<String> sendMessage(String text) async {
+  Stream<String> sendMessageStream(String text) async* {
     if (_chatSession == null) {
       initChat();
     }
 
     try {
-      final response = await _chatSession!.sendMessage(Content.text(text));
-      return response.text ?? 'Maaf, saya tidak dapat memberikan respons saat ini.';
+      final stream = _chatSession!.sendMessageStream(Content.text(text));
+      await for (final chunk in stream) {
+        if (chunk.text != null) {
+          yield chunk.text!;
+        }
+      }
     } catch (e) {
       print("ERROR GEMINI: $e");
-      return "Terjadi kesalahan: $e";
+      String errorMessage = e.toString().toLowerCase();
+      if (errorMessage.contains('quota') || errorMessage.contains('429') || errorMessage.contains('rate limit')) {
+        yield "⚠️ Maaf, batas penggunaan kamu sedang penuh.\n\nCoba tunggu beberapa saat, lalu tanya lagi ya!";
+      } else {
+        yield "Terjadi kesalahan: $e";
+      }
     }
   }
 
