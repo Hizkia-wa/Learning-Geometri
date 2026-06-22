@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
+
 import '../data/materi_data.dart';
-import 'materi_detail_page.dart'; // Pastikan import ke file detail materi sudah benar
+import 'materi_detail_page.dart';
 
 class MateriPage extends StatelessWidget {
   const MateriPage({super.key});
+
+  Color _getTopicColor(String id) {
+    switch (id) {
+      case '1':
+        return const Color(0xFF3B82F6); // Kubus
+      case '2':
+        return const Color(0xFFF59E0B); // Balok
+      case '3':
+        return const Color(0xFF10B981); // Tabung
+      case '4':
+        return const Color(0xFFA855F7); // Kerucut
+      case '5':
+        return const Color(0xFFEF4444); // Bola
+      default:
+        return const Color(0xFF17AEBF);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +29,8 @@ class MateriPage extends StatelessWidget {
       backgroundColor: const Color(0xFFF4F8FB),
       appBar: AppBar(
         title: const Text(
-          "Materi Pembelajaran", 
-          style: TextStyle(fontWeight: FontWeight.bold)
+          'Materi Pembelajaran',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
@@ -24,7 +42,8 @@ class MateriPage extends StatelessWidget {
         itemCount: daftarMateri.length,
         itemBuilder: (context, index) {
           final materi = daftarMateri[index];
-          
+          final color = _getTopicColor(materi.id);
+
           return Container(
             margin: const EdgeInsets.only(bottom: 15),
             decoration: BoxDecoration(
@@ -35,15 +54,14 @@ class MateriPage extends StatelessWidget {
                   color: Colors.black.withValues(alpha: 0.03),
                   blurRadius: 10,
                   offset: const Offset(0, 5),
-                )
+                ),
               ],
             ),
-            child: Material( // Menambahkan Material agar efek InkWell (klik) muncul
+            child: Material(
               color: Colors.transparent,
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () {
-                  // LOGIKA NAVIGASI: Mengirim objek 'materi' ke halaman detail
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -55,51 +73,48 @@ class MateriPage extends StatelessWidget {
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      // Leading Icon/Image
                       Container(
                         width: 65,
                         height: 65,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF17AEBF).withValues(alpha: 0.1),
+                          color: color.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: const Icon(
-                          Icons.menu_book_rounded, 
-                          color: Color(0xFF17AEBF),
+                        child: Icon(
+                          Icons.menu_book_rounded,
+                          color: color,
                           size: 30,
                         ),
                       ),
                       const SizedBox(width: 15),
-                      // Title & Subtitle
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              materi.judul, 
+                              materi.judul,
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold, 
-                                fontSize: 18
-                              )
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              materi.deskripsi, 
-                              maxLines: 2, 
+                              materi.deskripsi,
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: Colors.grey[600],
-                                fontSize: 13
+                                fontSize: 13,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      // Trailing Icon
-                      const Icon(
-                        Icons.arrow_forward_ios_rounded, 
-                        size: 16, 
-                        color: Colors.black26
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 16,
+                        color: color.withValues(alpha: 0.75),
                       ),
                     ],
                   ),
