@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../data/soal_kuis_model.dart';
+import '../services/activity_service.dart';
 import 'ai_solution_page.dart';
 import 'kuis_teori_page.dart';
 
-class KuisResultPage extends StatelessWidget {
+class KuisResultPage extends StatefulWidget {
   final List<SoalKuis> semuaSoal;
   final List<int?> userAnswers;
   final String namaTopik;
@@ -16,24 +17,46 @@ class KuisResultPage extends StatelessWidget {
     required this.namaTopik,
   });
 
+  @override
+  State<KuisResultPage> createState() => _KuisResultPageState();
+}
+
+class _KuisResultPageState extends State<KuisResultPage> {
   static const Color primaryColor = Color(0xFF17AEBF);
 
   int get _skorBenar {
     int benar = 0;
-
-    for (int i = 0; i < semuaSoal.length; i++) {
-      if (userAnswers[i] == semuaSoal[i].jawabanIndex) {
+    for (int i = 0; i < widget.semuaSoal.length; i++) {
+      if (widget.userAnswers[i] == widget.semuaSoal[i].jawabanIndex) {
         benar++;
       }
     }
-
     return benar;
   }
 
   @override
+  void initState() {
+    super.initState();
+    _saveActivity();
+  }
+
+  Future<void> _saveActivity() async {
+    if (widget.semuaSoal.isEmpty) return;
+
+    final persen = ((_skorBenar / widget.semuaSoal.length) * 100).round();
+
+    await ActivityService.addActivity(
+      title: 'Kuis Teori ${widget.namaTopik}',
+      subtitle: 'Selesai • Skor $persen% ($_skorBenar/${widget.semuaSoal.length} benar)',
+      type: 'kuis',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final persen =
-        semuaSoal.isEmpty ? 0 : ((_skorBenar / semuaSoal.length) * 100).round();
+    final persen = widget.semuaSoal.isEmpty
+        ? 0
+        : ((_skorBenar / widget.semuaSoal.length) * 100).round();
     final lulus = persen >= 70;
 
     return Scaffold(
@@ -67,13 +90,13 @@ class KuisResultPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       _buildStatCard(
-                        value: '${semuaSoal.length - _skorBenar}',
+                        value: '${widget.semuaSoal.length - _skorBenar}',
                         label: 'Salah',
                         color: Colors.red.shade600,
                       ),
                       const SizedBox(width: 10),
                       _buildStatCard(
-                        value: '${semuaSoal.length}',
+                        value: '${widget.semuaSoal.length}',
                         label: 'Soal',
                         color: primaryColor,
                       ),
@@ -97,9 +120,9 @@ class KuisResultPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 14),
-                  ...List.generate(semuaSoal.length, (index) {
-                    final soal = semuaSoal[index];
-                    final jawabanUser = userAnswers[index];
+                  ...List.generate(widget.semuaSoal.length, (index) {
+                    final soal = widget.semuaSoal[index];
+                    final jawabanUser = widget.userAnswers[index];
                     final benar = jawabanUser == soal.jawabanIndex;
 
                     return _buildReviewCard(
@@ -159,7 +182,7 @@ class KuisResultPage extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            '$_skorBenar dari ${semuaSoal.length} soal benar',
+            '$_skorBenar dari ${widget.semuaSoal.length} soal benar',
             style: const TextStyle(
               fontSize: 15,
               color: Color(0xFF4B5563),
@@ -177,7 +200,7 @@ class KuisResultPage extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             lulus
-                ? 'Pemahamanmu pada materi $namaTopik sudah baik.'
+                ? 'Pemahamanmu pada materi ${widget.namaTopik} sudah baik.'
                 : 'Pelajari kembali pembahasan soal yang masih salah.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -428,7 +451,7 @@ class KuisResultPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: const Color(0xFFF7FAFC),
                       borderRadius: BorderRadius.circular(14),
-                      border: Border(
+                      border: const Border(
                         left: BorderSide(
                           color: primaryColor,
                           width: 4,
@@ -557,15 +580,15 @@ class KuisResultPage extends StatelessWidget {
         children: [
           Expanded(
             child: OutlinedButton(
-              onPressed: semuaSoal.isEmpty
+              onPressed: widget.semuaSoal.isEmpty
                   ? null
                   : () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (_) => KuisTeoriPage(
-                            topikId: semuaSoal.first.topikId,
-                            namaTopik: namaTopik,
+                            topikId: widget.semuaSoal.first.topikId,
+                            namaTopik: widget.namaTopik,
                           ),
                         ),
                       );

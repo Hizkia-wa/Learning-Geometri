@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import '../data/soal_latihan_model.dart';
+import '../services/activity_service.dart';
 import 'ai_solution_page.dart';
 
 class LatihanSoalPage extends StatefulWidget {
@@ -31,7 +33,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   String _jawabanUserTerakhir = '-';
 
   final _controller = TextEditingController();
-  final _focusNode = FocusNode(); // TAMBAH KEMBALI
+  final _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -42,7 +44,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   @override
   void dispose() {
     _controller.dispose();
-    _focusNode.dispose(); // TAMBAH KEMBALI
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -50,8 +52,6 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
     final jsonStr = await rootBundle.loadString('assets/data/latihan_soal.json');
     final List<dynamic> data = jsonDecode(jsonStr);
     final semua = data.map((e) => SoalLatihan.fromJson(e)).toList();
-
-    // Filter sesuai topikId
     final filtered = semua.where((s) => s.topikId == widget.topikId).toList();
 
     setState(() {
@@ -66,6 +66,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   void _periksa() {
     final input = _controller.text.trim().replaceAll(',', '.');
     final nilai = double.tryParse(input);
+
     if (nilai == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -75,8 +76,11 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
       );
       return;
     }
-    _focusNode.unfocus(); // pakai focusNode
+
+    _focusNode.unfocus();
+
     final benar = _soalList[_currentIndex].cekJawaban(nilai);
+
     setState(() {
       _jawabanUserTerakhir = input;
       _sudahJawab = true;
@@ -94,7 +98,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
         _jawabanUserTerakhir = '-';
         _controller.clear();
       });
-      // Request focus setelah frame selesai render
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _focusNode.requestFocus();
       });
@@ -133,12 +137,18 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
             children: [
               const Icon(Icons.inbox_rounded, size: 64, color: Colors.grey),
               const SizedBox(height: 16),
-              Text(_errorMsg!, style: const TextStyle(color: Colors.grey, fontSize: 16)),
+              Text(
+                _errorMsg!,
+                style: const TextStyle(color: Colors.grey, fontSize: 16),
+              ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
                 style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                child: const Text('Kembali', style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'Kembali',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
@@ -163,7 +173,6 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
       ),
       body: Column(
         children: [
-          // Header progress
           Container(
             color: primaryColor,
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -206,16 +215,14 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
               ],
             ),
           ),
-
           Expanded(
             child: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
-
-                  // Chip rumus
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     decoration: BoxDecoration(
@@ -240,8 +247,6 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                     ),
                   ),
                   const SizedBox(height: 14),
-
-                  // Kartu soal
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
@@ -265,8 +270,6 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
-
-                  // Input jawaban
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -283,12 +286,9 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                         Expanded(
                           child: TextField(
                             controller: _controller,
-                            focusNode: _focusNode, // TAMBAH KEMBALI
+                            focusNode: _focusNode,
                             readOnly: _sudahJawab,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                            // TIDAK pakai autofocus
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
                             decoration: InputDecoration(
                               hintText: 'Masukkan jawaban...',
                               border: InputBorder.none,
@@ -330,20 +330,15 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                       ],
                     ),
                   ),
-
-                  // Hasil + pembahasan
                   if (_sudahJawab) ...[
                     const SizedBox(height: 16),
                     _buildHasilPembahasan(soal),
                   ],
-
                   const SizedBox(height: 100),
                 ],
               ),
             ),
           ),
-
-          // Tombol lanjut
           if (_sudahJawab)
             Container(
               padding: const EdgeInsets.all(20),
@@ -398,9 +393,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                 _jawabanBenar ? 'Jawaban Benar!' : 'Jawaban Salah',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: _jawabanBenar
-                      ? Colors.green.shade700
-                      : Colors.red.shade700,
+                  color: _jawabanBenar ? Colors.green.shade700 : Colors.red.shade700,
                   fontSize: 15,
                 ),
               ),
@@ -468,10 +461,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   }
 }
 
-// ─────────────────────────────────────────────
-// Halaman Hasil Latihan
-// ─────────────────────────────────────────────
-class LatihanResultPage extends StatelessWidget {
+class LatihanResultPage extends StatefulWidget {
   final int skorBenar;
   final int totalSoal;
   final String topikId;
@@ -485,11 +475,36 @@ class LatihanResultPage extends StatelessWidget {
     required this.namaTopik,
   });
 
+  @override
+  State<LatihanResultPage> createState() => _LatihanResultPageState();
+}
+
+class _LatihanResultPageState extends State<LatihanResultPage> {
   static const Color primaryColor = Color(0xFF17AEBF);
 
   @override
+  void initState() {
+    super.initState();
+    _saveActivity();
+  }
+
+  Future<void> _saveActivity() async {
+    final persen = widget.totalSoal == 0
+        ? 0
+        : (widget.skorBenar / widget.totalSoal * 100).round();
+
+    await ActivityService.addActivity(
+      title: 'Latihan ${widget.namaTopik}',
+      subtitle: 'Selesai • Skor $persen% (${widget.skorBenar}/${widget.totalSoal} benar)',
+      type: 'latihan',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final persen = (skorBenar / totalSoal * 100).round();
+    final persen = widget.totalSoal == 0
+        ? 0
+        : (widget.skorBenar / widget.totalSoal * 100).round();
     final lulus = persen >= 60;
 
     return Scaffold(
@@ -511,9 +526,7 @@ class LatihanResultPage extends StatelessWidget {
                   height: 130,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: lulus
-                        ? const Color(0xFFE8F5E9)
-                        : const Color(0xFFFFEBEE),
+                    color: lulus ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
                   ),
                   child: Icon(
                     lulus ? Icons.emoji_events_rounded : Icons.replay_rounded,
@@ -529,8 +542,8 @@ class LatihanResultPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   lulus
-                      ? 'Kemampuan hitungmu pada materi $namaTopik sudah baik!'
-                      : 'Coba pelajari lagi rumus $namaTopik ya!',
+                      ? 'Kemampuan hitungmu pada materi ${widget.namaTopik} sudah baik!'
+                      : 'Coba pelajari lagi rumus ${widget.namaTopik} ya!',
                   style: const TextStyle(color: Colors.grey, fontSize: 14),
                   textAlign: TextAlign.center,
                 ),
@@ -560,15 +573,13 @@ class LatihanResultPage extends StatelessWidget {
                       const Text('%', style: TextStyle(fontSize: 20, color: Colors.grey)),
                       const SizedBox(height: 12),
                       Text(
-                        '$skorBenar dari $totalSoal soal benar',
+                        '${widget.skorBenar} dari ${widget.totalSoal} soal benar',
                         style: const TextStyle(fontSize: 15, color: Colors.grey),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 32),
-
-                // Tombol Ulangi Latihan
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -578,8 +589,8 @@ class LatihanResultPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (_) => LatihanSoalPage(
-                            topikId: topikId,
-                            namaTopik: namaTopik,
+                            topikId: widget.topikId,
+                            namaTopik: widget.namaTopik,
                           ),
                         ),
                       );
@@ -599,8 +610,6 @@ class LatihanResultPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-
-                // Tombol Kembali ke Beranda
                 TextButton(
                   onPressed: () {
                     Navigator.popUntil(context, ModalRoute.withName('/'));
