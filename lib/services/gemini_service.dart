@@ -11,7 +11,7 @@ class GeminiService {
     }
 
     final model = GenerativeModel(
-      model: 'gemini-2.5-flash-lite',
+      model: 'gemini-3.1-flash-lite',
       apiKey: apiKey,
       systemInstruction: systemInstruction != null 
           ? Content.system(systemInstruction) 

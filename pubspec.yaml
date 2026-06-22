@@ -22,6 +22,7 @@ dependencies:
   # Existing packages
   syncfusion_flutter_pdfviewer: ^33.2.3
   flutter_cube: ^0.1.1
+  model_viewer_plus: ^1.10.0
 
 dev_dependencies:
   flutter_test:

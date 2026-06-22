@@ -5,6 +5,7 @@ import 'kuis_topik_page.dart';
 import 'latihan_topik_page.dart';
 import 'ai_solution_page.dart';
 import 'peta_konsep_page.dart';
+import 'ar_view_page.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -167,7 +168,18 @@ class Dashboard extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const AiSolutionPage()),
                 ),
               ),
-              _buildActionItem(Icons.view_in_ar_rounded, "AR View", Colors.indigo),
+              _buildActionItem(
+                Icons.view_in_ar_rounded, 
+                "AR View", 
+                Colors.indigo,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ArViewPage(
+                    title: 'Bangun Ruang AR',
+                    modelUrl: 'assets/cube/cubexm.glb',
+                  )),
+                ),
+              ),
             ],
           ),
         ],
