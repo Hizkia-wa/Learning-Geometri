@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../data/materi_data.dart';
+import '../services/activity_service.dart';
 import 'cube_3d_page.dart';
 import 'kuis_teori_page.dart';
 import 'latihan_soal_page.dart';
 
-class MateriDetailPage extends StatelessWidget {
+class MateriDetailPage extends StatefulWidget {
   final Materi materi;
 
   const MateriDetailPage({
@@ -14,10 +15,31 @@ class MateriDetailPage extends StatelessWidget {
     required this.materi,
   });
 
+  @override
+  State<MateriDetailPage> createState() => _MateriDetailPageState();
+}
+
+class _MateriDetailPageState extends State<MateriDetailPage> {
   static const Color primaryColor = Color(0xFF17AEBF);
 
   @override
+  void initState() {
+    super.initState();
+    _saveActivity();
+  }
+
+  Future<void> _saveActivity() async {
+    await ActivityService.addActivity(
+      title: 'Materi ${widget.materi.judul}',
+      subtitle: 'Membuka materi ${widget.materi.judul}',
+      type: 'materi',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final materi = widget.materi;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
