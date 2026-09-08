@@ -22,25 +22,37 @@ final List<Materi> daftarMateri = [
   Materi(
     id: "2",
     judul: "Balok",
-    deskripsi: "Mempelajari struktur balok dan rumusnya.",
+    deskripsi: "Mempelajari struktur, luas permukaan, dan volume balok.",
     pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
   ),
   Materi(
     id: "3",
-    judul: "Tabung",
-    deskripsi: "Bangun ruang dengan dua lingkaran sebagai alas dan tutup.",
+    judul: "Prisma",
+    deskripsi: "Mempelajari unsur, sifat, luas permukaan, dan volume prisma.",
     pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
   ),
   Materi(
     id: "4",
-    judul: "Kerucut",
-    deskripsi: "Bangun ruang dengan alas lingkaran dan puncak runcing.",
+    judul: "Limas",
+    deskripsi: "Mempelajari unsur, sifat, luas permukaan, dan volume limas.",
     pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
   ),
   Materi(
     id: "5",
+    judul: "Tabung",
+    deskripsi: "Mempelajari unsur, luas permukaan, dan volume tabung.",
+    pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
+  ),
+  Materi(
+    id: "6",
+    judul: "Kerucut",
+    deskripsi: "Mempelajari unsur, luas permukaan, dan volume kerucut.",
+    pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
+  ),
+  Materi(
+    id: "7",
     judul: "Bola",
-    deskripsi: "Bangun ruang sempurna dengan semua titik pada permukaan sama jarak dari pusat.",
+    deskripsi: "Mempelajari sifat, luas permukaan, dan volume bola.",
     pdfPath: "assets/pdf/Matematika_Pembelajaran-3.pdf",
   ),
 ];
