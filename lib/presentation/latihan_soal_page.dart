@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,11 +25,13 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   static const Color primaryColor = Color(0xFF17AEBF);
 
   List<SoalLatihan> _soalList = [];
+
   int _currentIndex = 0;
   bool _sudahJawab = false;
   bool _jawabanBenar = false;
   bool _isLoading = true;
   int _skorBenar = 0;
+
   String? _errorMsg;
   String _jawabanUserTerakhir = '-';
 
@@ -49,22 +52,48 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   }
 
   Future<void> _loadSoal() async {
-    final jsonStr = await rootBundle.loadString('assets/data/latihan_soal.json');
-    final List<dynamic> data = jsonDecode(jsonStr);
-    final semua = data.map((e) => SoalLatihan.fromJson(e)).toList();
-    final filtered = semua.where((s) => s.topikId == widget.topikId).toList();
+    try {
+      final jsonStr = await rootBundle.loadString(
+        'assets/data/latihan_soal.json',
+      );
 
-    setState(() {
-      if (filtered.isEmpty) {
-        _errorMsg = 'Belum ada soal untuk topik ini.';
-      }
-      _soalList = filtered;
-      _isLoading = false;
-    });
+      final List<dynamic> data = jsonDecode(jsonStr);
+
+      final semua = data
+          .map(
+            (e) => SoalLatihan.fromJson(
+              Map<String, dynamic>.from(e),
+            ),
+          )
+          .toList();
+
+      final filtered = semua
+          .where((s) => s.topikId == widget.topikId)
+          .toList();
+
+      if (!mounted) return;
+
+      setState(() {
+        if (filtered.isEmpty) {
+          _errorMsg = 'Belum ada soal untuk topik ini.';
+        }
+
+        _soalList = filtered;
+        _isLoading = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        _errorMsg = 'Gagal memuat soal latihan.';
+        _isLoading = false;
+      });
+    }
   }
 
   void _periksa() {
     final input = _controller.text.trim().replaceAll(',', '.');
+
     final nilai = double.tryParse(input);
 
     if (nilai == null) {
@@ -74,6 +103,7 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
           backgroundColor: Colors.red,
         ),
       );
+
       return;
     }
 
@@ -85,7 +115,10 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
       _jawabanUserTerakhir = input;
       _sudahJawab = true;
       _jawabanBenar = benar;
-      if (benar) _skorBenar++;
+
+      if (benar) {
+        _skorBenar++;
+      }
     });
   }
 
@@ -100,7 +133,9 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
       });
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _focusNode.requestFocus();
+        if (mounted) {
+          _focusNode.requestFocus();
+        }
       });
     } else {
       Navigator.push(
@@ -120,11 +155,16 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     }
 
     if (_errorMsg != null) {
       return Scaffold(
+        backgroundColor: const Color(0xFFF4F8FB),
         appBar: AppBar(
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
@@ -135,20 +175,27 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.inbox_rounded, size: 64, color: Colors.grey),
+              const Icon(
+                Icons.inbox_rounded,
+                size: 64,
+                color: Colors.grey,
+              ),
               const SizedBox(height: 16),
               Text(
                 _errorMsg!,
-                style: const TextStyle(color: Colors.grey, fontSize: 16),
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
-                style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                child: const Text(
-                  'Kembali',
-                  style: TextStyle(color: Colors.white),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  foregroundColor: Colors.white,
                 ),
+                child: const Text('Kembali'),
               ),
             ],
           ),
@@ -157,7 +204,9 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
     }
 
     final soal = _soalList[_currentIndex];
-    final progress = (_currentIndex + 1) / _soalList.length;
+
+    final progress =
+        (_currentIndex + 1) / _soalList.length;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF4F8FB),
@@ -167,7 +216,9 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
         elevation: 0,
         title: Text(
           'Latihan ${widget.namaTopik}',
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
@@ -175,28 +226,45 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
         children: [
           Container(
             color: primaryColor,
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+            padding: const EdgeInsets.fromLTRB(
+              20,
+              0,
+              20,
+              20,
+            ),
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Soal ${_currentIndex + 1} dari ${_soalList.length}',
-                      style: const TextStyle(color: Colors.white70, fontSize: 13),
+                      'Soal ${_currentIndex + 1} '
+                      'dari ${_soalList.length}',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 13,
+                      ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding:
+                          const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(20),
+                        color:
+                            Colors.white.withOpacity(0.2),
+                        borderRadius:
+                            BorderRadius.circular(20),
                       ),
                       child: Text(
                         soal.topik,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                          fontWeight:
+                              FontWeight.bold,
                         ),
                       ),
                     ),
@@ -204,10 +272,12 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                 ),
                 const SizedBox(height: 10),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius:
+                      BorderRadius.circular(10),
                   child: LinearProgressIndicator(
                     value: progress,
-                    backgroundColor: Colors.white.withOpacity(0.3),
+                    backgroundColor:
+                        Colors.white.withOpacity(0.3),
                     color: Colors.white,
                     minHeight: 6,
                   ),
@@ -215,130 +285,39 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
               ],
             ),
           ),
+
           Expanded(
             child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
+              physics:
+                  const ClampingScrollPhysics(),
               padding: const EdgeInsets.all(20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: primaryColor.withOpacity(0.3)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(Icons.functions, size: 16, color: primaryColor),
-                        const SizedBox(width: 6),
-                        Text(
-                          soal.rumus,
-                          style: const TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+
+                  _buildRumusCard(soal),
+
                   const SizedBox(height: 14),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      soal.pertanyaan,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        height: 1.6,
-                      ),
-                    ),
-                  ),
+
+                  _buildSoalCard(soal),
+
                   const SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                        color: _sudahJawab
-                            ? (_jawabanBenar ? Colors.green : Colors.red)
-                            : Colors.grey.shade200,
-                        width: 1.5,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _controller,
-                            focusNode: _focusNode,
-                            readOnly: _sudahJawab,
-                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                            decoration: InputDecoration(
-                              hintText: 'Masukkan jawaban...',
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 16,
-                              ),
-                              suffixText: soal.satuan,
-                              suffixStyle: const TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (!_sudahJawab)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: ElevatedButton(
-                              onPressed: _periksa,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: primaryColor,
-                                foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 14,
-                                ),
-                                elevation: 0,
-                              ),
-                              child: const Text(
-                                'Periksa',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
+
+                  _buildInputJawaban(soal),
+
                   if (_sudahJawab) ...[
                     const SizedBox(height: 16),
                     _buildHasilPembahasan(soal),
                   ],
+
                   const SizedBox(height: 100),
                 ],
               ),
             ),
           ),
+
           if (_sudahJawab)
             Container(
               padding: const EdgeInsets.all(20),
@@ -346,20 +325,35 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: _soalBerikutnya,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+                  style:
+                      ElevatedButton.styleFrom(
+                    backgroundColor:
+                        primaryColor,
+                    foregroundColor:
+                        Colors.white,
+                    padding:
+                        const EdgeInsets.symmetric(
+                      vertical: 16,
+                    ),
+                    shape:
+                        RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(
+                        14,
+                      ),
                     ),
                     elevation: 0,
                   ),
                   child: Text(
-                    _currentIndex < _soalList.length - 1
+                    _currentIndex <
+                            _soalList.length - 1
                         ? 'Soal Berikutnya →'
                         : 'Lihat Hasil',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight:
+                          FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -369,52 +363,306 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
     );
   }
 
-  Widget _buildHasilPembahasan(SoalLatihan soal) {
+  Widget _buildRumusCard(SoalLatihan soal) {
+    if (soal.rumus.trim().isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 14,
+        vertical: 8,
+      ),
+      decoration: BoxDecoration(
+        color: primaryColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: primaryColor.withOpacity(0.3),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.functions,
+            size: 16,
+            color: primaryColor,
+          ),
+          const SizedBox(width: 6),
+          Flexible(
+            child: Text(
+              soal.rumus,
+              style: const TextStyle(
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSoalCard(SoalLatihan soal) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color:
+                Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+        children: [
+          if (soal.memilikiGambar) ...[
+            ClipRRect(
+              borderRadius:
+                  BorderRadius.circular(12),
+              child: Image.asset(
+                soal.imagePath!,
+                width: double.infinity,
+                fit: BoxFit.contain,
+                errorBuilder: (
+                  context,
+                  error,
+                  stackTrace,
+                ) {
+                  return Container(
+                    width: double.infinity,
+                    padding:
+                        const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 24,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius:
+                          BorderRadius.circular(
+                        12,
+                      ),
+                    ),
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons
+                              .broken_image_outlined,
+                          color:
+                              Colors.redAccent,
+                          size: 32,
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Gambar soal tidak dapat dimuat.',
+                          textAlign:
+                              TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color:
+                                Colors.redAccent,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
+
+          Text(
+            soal.pertanyaan,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              height: 1.6,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputJawaban(
+    SoalLatihan soal,
+  ) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(
+          color: _sudahJawab
+              ? (_jawabanBenar
+                  ? Colors.green
+                  : Colors.red)
+              : Colors.grey.shade200,
+          width: 1.5,
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              focusNode: _focusNode,
+              readOnly: _sudahJawab,
+              keyboardType:
+                  const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: false,
+              ),
+              onSubmitted: (_) {
+                if (!_sudahJawab) {
+                  _periksa();
+                }
+              },
+              decoration: InputDecoration(
+                hintText:
+                    'Masukkan jawaban...',
+                border: InputBorder.none,
+                contentPadding:
+                    const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
+                ),
+                suffixText:
+                    soal.satuan.trim().isEmpty
+                        ? null
+                        : soal.satuan,
+                suffixStyle:
+                    const TextStyle(
+                  color: Colors.grey,
+                  fontWeight:
+                      FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+
+          if (!_sudahJawab)
+            Padding(
+              padding:
+                  const EdgeInsets.only(
+                right: 8,
+              ),
+              child: ElevatedButton(
+                onPressed: _periksa,
+                style:
+                    ElevatedButton.styleFrom(
+                  backgroundColor:
+                      primaryColor,
+                  foregroundColor:
+                      Colors.white,
+                  shape:
+                      RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(
+                      10,
+                    ),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 14,
+                  ),
+                  elevation: 0,
+                ),
+                child: const Text(
+                  'Periksa',
+                  style: TextStyle(
+                    fontWeight:
+                        FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHasilPembahasan(
+    SoalLatihan soal,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: _jawabanBenar ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
+        color: _jawabanBenar
+            ? const Color(0xFFE8F5E9)
+            : const Color(0xFFFFEBEE),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: _jawabanBenar ? Colors.green.shade200 : Colors.red.shade200,
+          color: _jawabanBenar
+              ? Colors.green.shade200
+              : Colors.red.shade200,
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Icon(
-                _jawabanBenar ? Icons.check_circle : Icons.cancel,
-                color: _jawabanBenar ? Colors.green : Colors.red,
+                _jawabanBenar
+                    ? Icons.check_circle
+                    : Icons.cancel,
+                color: _jawabanBenar
+                    ? Colors.green
+                    : Colors.red,
               ),
               const SizedBox(width: 8),
               Text(
-                _jawabanBenar ? 'Jawaban Benar!' : 'Jawaban Salah',
+                _jawabanBenar
+                    ? 'Jawaban Benar!'
+                    : 'Jawaban Salah',
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: _jawabanBenar ? Colors.green.shade700 : Colors.red.shade700,
+                  fontWeight:
+                      FontWeight.bold,
+                  color: _jawabanBenar
+                      ? Colors.green.shade700
+                      : Colors.red.shade700,
                   fontSize: 15,
                 ),
               ),
             ],
           ),
+
           if (!_jawabanBenar) ...[
             const SizedBox(height: 6),
             Text(
-              'Jawaban benar: ${soal.jawabanBenar} ${soal.satuan}',
+              'Jawaban benar: '
+              '${_formatAngka(soal.jawabanBenar)}'
+              '${soal.satuan.trim().isEmpty ? '' : ' ${soal.satuan}'}',
               style: TextStyle(
                 color: Colors.red.shade700,
-                fontWeight: FontWeight.w500,
+                fontWeight:
+                    FontWeight.w500,
               ),
             ),
           ],
+
           const Divider(height: 20),
+
           const Text(
             '📖 Pembahasan',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
           ),
+
           const SizedBox(height: 6),
+
           Text(
             soal.pembahasan,
             style: const TextStyle(
@@ -423,7 +671,9 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
               color: Colors.black87,
             ),
           ),
+
           const SizedBox(height: 14),
+
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
@@ -431,25 +681,48 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => AiSolutionPage(
+                    builder: (_) =>
+                        AiSolutionPage(
                       topik: soal.topik,
-                      pertanyaan: soal.pertanyaan,
-                      jawabanBenar: '${soal.jawabanBenar} ${soal.satuan}',
-                      jawabanPengguna: '$_jawabanUserTerakhir ${soal.satuan}',
-                      jawabanBenarFlag: _jawabanBenar,
-                      pembahasanAsli: soal.pembahasan,
+                      pertanyaan:
+                          soal.pertanyaan,
+                      jawabanBenar:
+                          '${_formatAngka(soal.jawabanBenar)}'
+                          '${soal.satuan.trim().isEmpty ? '' : ' ${soal.satuan}'}',
+                      jawabanPengguna:
+                          '$_jawabanUserTerakhir'
+                          '${soal.satuan.trim().isEmpty ? '' : ' ${soal.satuan}'}',
+                      jawabanBenarFlag:
+                          _jawabanBenar,
+                      pembahasanAsli:
+                          soal.pembahasan,
                     ),
                   ),
                 );
               },
-              icon: const Icon(Icons.auto_awesome, size: 18),
-              label: const Text('Lihat Pembahasan AI'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+              icon: const Icon(
+                Icons.auto_awesome,
+                size: 18,
+              ),
+              label: const Text(
+                'Lihat Pembahasan AI',
+              ),
+              style:
+                  ElevatedButton.styleFrom(
+                backgroundColor:
+                    primaryColor,
+                foregroundColor:
+                    Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(
+                  vertical: 12,
+                ),
+                shape:
+                    RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    12,
+                  ),
                 ),
                 elevation: 0,
               ),
@@ -458,6 +731,23 @@ class _LatihanSoalPageState extends State<LatihanSoalPage> {
         ],
       ),
     );
+  }
+
+  String _formatAngka(double nilai) {
+    if (nilai == nilai.roundToDouble()) {
+      return nilai.toInt().toString();
+    }
+
+    return nilai
+        .toStringAsFixed(4)
+        .replaceFirst(
+          RegExp(r'0+$'),
+          '',
+        )
+        .replaceFirst(
+          RegExp(r'\.$'),
+          '',
+        );
   }
 }
 
@@ -476,11 +766,14 @@ class LatihanResultPage extends StatefulWidget {
   });
 
   @override
-  State<LatihanResultPage> createState() => _LatihanResultPageState();
+  State<LatihanResultPage> createState() =>
+      _LatihanResultPageState();
 }
 
-class _LatihanResultPageState extends State<LatihanResultPage> {
-  static const Color primaryColor = Color(0xFF17AEBF);
+class _LatihanResultPageState
+    extends State<LatihanResultPage> {
+  static const Color primaryColor =
+      Color(0xFF17AEBF);
 
   @override
   void initState() {
@@ -489,73 +782,125 @@ class _LatihanResultPageState extends State<LatihanResultPage> {
   }
 
   Future<void> _saveActivity() async {
-    final persen = widget.totalSoal == 0
-        ? 0
-        : (widget.skorBenar / widget.totalSoal * 100).round();
+    final persen =
+        widget.totalSoal == 0
+            ? 0
+            : (widget.skorBenar /
+                    widget.totalSoal *
+                    100)
+                .round();
 
     await ActivityService.addActivity(
-      title: 'Latihan ${widget.namaTopik}',
-      subtitle: 'Selesai • Skor $persen% (${widget.skorBenar}/${widget.totalSoal} benar)',
+      title:
+          'Latihan ${widget.namaTopik}',
+      subtitle:
+          'Selesai • Skor $persen% '
+          '(${widget.skorBenar}/${widget.totalSoal} benar)',
       type: 'latihan',
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final persen = widget.totalSoal == 0
-        ? 0
-        : (widget.skorBenar / widget.totalSoal * 100).round();
+    final persen =
+        widget.totalSoal == 0
+            ? 0
+            : (widget.skorBenar /
+                    widget.totalSoal *
+                    100)
+                .round();
+
     final lulus = persen >= 60;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F8FB),
+      backgroundColor:
+          const Color(0xFFF4F8FB),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF4F8FB),
+        backgroundColor:
+            const Color(0xFFF4F8FB),
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(30),
+            padding:
+                const EdgeInsets.all(30),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment:
+                  MainAxisAlignment.center,
               children: [
                 Container(
                   width: 130,
                   height: 130,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: lulus ? const Color(0xFFE8F5E9) : const Color(0xFFFFEBEE),
+                    color: lulus
+                        ? const Color(
+                            0xFFE8F5E9,
+                          )
+                        : const Color(
+                            0xFFFFEBEE,
+                          ),
                   ),
                   child: Icon(
-                    lulus ? Icons.emoji_events_rounded : Icons.replay_rounded,
+                    lulus
+                        ? Icons
+                            .emoji_events_rounded
+                        : Icons.replay_rounded,
                     size: 64,
-                    color: lulus ? Colors.green : Colors.red,
+                    color: lulus
+                        ? Colors.green
+                        : Colors.red,
                   ),
                 ),
+
                 const SizedBox(height: 24),
-                Text(
-                  lulus ? 'Hebat! 🎉' : 'Terus Berlatih!',
-                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
+
                 Text(
                   lulus
-                      ? 'Kemampuan hitungmu pada materi ${widget.namaTopik} sudah baik!'
-                      : 'Coba pelajari lagi rumus ${widget.namaTopik} ya!',
-                  style: const TextStyle(color: Colors.grey, fontSize: 14),
-                  textAlign: TextAlign.center,
+                      ? 'Hebat! 🎉'
+                      : 'Terus Berlatih!',
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight:
+                        FontWeight.bold,
+                  ),
                 ),
+
+                const SizedBox(height: 8),
+
+                Text(
+                  lulus
+                      ? 'Kemampuan hitungmu pada materi '
+                          '${widget.namaTopik} sudah baik!'
+                      : 'Coba pelajari lagi rumus '
+                          '${widget.namaTopik} ya!',
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                  textAlign:
+                      TextAlign.center,
+                ),
+
                 const SizedBox(height: 32),
+
                 Container(
-                  padding: const EdgeInsets.all(24),
+                  padding:
+                      const EdgeInsets.all(
+                    24,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius:
+                        BorderRadius.circular(
+                      20,
+                    ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black
+                            .withOpacity(0.05),
                         blurRadius: 15,
                       ),
                     ],
@@ -566,57 +911,111 @@ class _LatihanResultPageState extends State<LatihanResultPage> {
                         '$persen',
                         style: TextStyle(
                           fontSize: 56,
-                          fontWeight: FontWeight.bold,
-                          color: lulus ? Colors.green : Colors.red,
+                          fontWeight:
+                              FontWeight.bold,
+                          color: lulus
+                              ? Colors.green
+                              : Colors.red,
                         ),
                       ),
-                      const Text('%', style: TextStyle(fontSize: 20, color: Colors.grey)),
-                      const SizedBox(height: 12),
+                      const Text(
+                        '%',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
                       Text(
-                        '${widget.skorBenar} dari ${widget.totalSoal} soal benar',
-                        style: const TextStyle(fontSize: 15, color: Colors.grey),
+                        '${widget.skorBenar} '
+                        'dari ${widget.totalSoal} '
+                        'soal benar',
+                        style:
+                            const TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
                 ),
+
                 const SizedBox(height: 32),
+
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.popUntil(
+                        context,
+                        ModalRoute.withName(
+                          '/',
+                        ),
+                      );
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => LatihanSoalPage(
-                            topikId: widget.topikId,
-                            namaTopik: widget.namaTopik,
+                          builder: (_) =>
+                              LatihanSoalPage(
+                            topikId:
+                                widget.topikId,
+                            namaTopik:
+                                widget
+                                    .namaTopik,
                           ),
                         ),
                       );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
+                    style:
+                        ElevatedButton.styleFrom(
+                      backgroundColor:
+                          primaryColor,
+                      foregroundColor:
+                          Colors.white,
+                      padding:
+                          const EdgeInsets
+                              .symmetric(
+                        vertical: 16,
+                      ),
+                      shape:
+                          RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                          14,
+                        ),
                       ),
                     ),
                     child: const Text(
                       'Ulangi Latihan',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight:
+                            FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 12),
+
                 TextButton(
                   onPressed: () {
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    Navigator.popUntil(
+                      context,
+                      ModalRoute.withName(
+                        '/',
+                      ),
+                    );
                   },
                   child: const Text(
                     'Kembali ke Beranda',
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ],

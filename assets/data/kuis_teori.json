@@ -1,182 +1,164 @@
 [
   {
     "id": "kt_001",
-    "topikId": "1",
-    "topik": "Kubus",
-    "pertanyaan": "Berapa banyak sisi yang dimiliki kubus?",
-    "pilihan": ["4", "5", "6", "8"],
-    "jawabanIndex": 2,
-    "pembahasan": "Kubus memiliki 6 sisi berbentuk persegi yang kongruen."
+    "topikId": "3",
+    "topik": "Prisma",
+    "pertanyaan": "Aku adalah bangun ruang yang memiliki 5 sisi, 9 rusuk, dan 6 titik sudut. Aku adalah...",
+    "pilihan": [
+      "Prisma segiempat",
+      "Prisma segitiga",
+      "Limas segiempat",
+      "Limas segitiga"
+    ],
+    "jawabanIndex": 1,
+    "pembahasan": "Dari informasi pada soal, bangun yang paling sesuai adalah prisma segitiga. Prisma segitiga memiliki 5 sisi, 9 rusuk, dan 6 titik sudut."
   },
   {
     "id": "kt_002",
     "topikId": "1",
     "topik": "Kubus",
-    "pertanyaan": "Berapa banyak rusuk yang dimiliki kubus?",
-    "pilihan": ["8", "10", "12", "16"],
-    "jawabanIndex": 2,
-    "pembahasan": "Kubus memiliki 12 rusuk dengan panjang yang sama."
+    "pertanyaan": "Perhatikan pernyataan berikut ini!\n1. Rusuk kubus berukuran sama panjang.\n2. Diagonal bidang/sisi sama panjang.\n3. Sisi kubus berbentuk persegi panjang.\n4. Diagonal bidang sama besar dengan diagonal ruang.\n\nBerdasarkan pernyataan di atas, sifat kubus ditunjukkan oleh pernyataan nomor...",
+    "pilihan": [
+      "1 dan 2",
+      "1 dan 3",
+      "2 dan 4",
+      "3 dan 4"
+    ],
+    "jawabanIndex": 0,
+    "pembahasan": "Pernyataan yang tepat adalah (1) rusuk kubus berukuran sama panjang dan (2) diagonal bidang/sisi kubus sama panjang. Oleh karena itu, pilihan yang sesuai adalah 1 dan 2."
   },
   {
     "id": "kt_003",
-    "topikId": "1",
-    "topik": "Kubus",
-    "pertanyaan": "Berapa banyak titik sudut pada kubus?",
-    "pilihan": ["4", "6", "8", "10"],
-    "jawabanIndex": 2,
-    "pembahasan": "Kubus memiliki 8 titik sudut di setiap pojok bangun."
+    "topikId": "4",
+    "topik": "Limas",
+    "pertanyaan": "Perhatikan gambar limas T.ABCD. Limas mempunyai alas persegi dengan panjang sisi 12 cm dan tinggi 8 cm.\n\nPerhatikan pernyataan berikut:\n1. Volume limas adalah 576 cm³.\n2. Panjang TE adalah 10 cm.\n3. Luas segitiga TAB adalah 48 cm².\n4. Luas seluruh permukaan limas adalah 384 cm².\n\nPernyataan yang benar adalah...",
+    "pilihan": [
+      "Pernyataan 1 dan 2",
+      "Pernyataan 1 dan 3",
+      "Pernyataan 2 dan 3",
+      "Pernyataan 2 dan 4"
+    ],
+    "jawabanIndex": 3,
+    "pembahasan": "Volume limas bukan 576 cm³, sehingga pernyataan (1) salah. Panjang TE = 10 cm, sehingga pernyataan (2) benar. Luas segitiga TAB bukan 48 cm², sehingga pernyataan (3) salah. Luas seluruh permukaan limas adalah 384 cm², sehingga pernyataan (4) benar. Jadi pernyataan yang benar adalah (2) dan (4).",
+    "imagePath": "assets/images/soal/soal_13.png"
   },
   {
     "id": "kt_004",
-    "topikId": "1",
+    "topikId": "PENDING",
     "topik": "Kubus",
-    "pertanyaan": "Rumus volume kubus dengan panjang rusuk s adalah...",
-    "pilihan": ["s²", "3s", "s³", "6s²"],
-    "jawabanIndex": 2,
-    "pembahasan": "Volume kubus = s³ (sisi dipangkatkan tiga)."
+    "pertanyaan": "Perhatikan gambar kubus berikut. Bidang diagonal yang tegak lurus dengan BCHE adalah...",
+    "pilihan": [
+      "Bidang ABGH",
+      "Bidang ADGH",
+      "Bidang CDEF",
+      "Bidang ACGE"
+    ],
+    "jawabanIndex": -1,
+    "pembahasan": "Kunci jawaban dan pembahasan soal ini masih menunggu konfirmasi dari dosen.",
+    "imagePath": "assets/images/soal/soal_14.png",
+    "status": "pending_konfirmasi_dosen"
   },
   {
     "id": "kt_005",
     "topikId": "1",
     "topik": "Kubus",
-    "pertanyaan": "Rumus luas permukaan kubus adalah...",
-    "pilihan": ["4s²", "6s²", "s³", "2s²"],
+    "pertanyaan": "Perhatikan empat macam rangkaian enam bujur sangkar pada gambar. Rangkaian yang merupakan jaring-jaring kubus adalah...",
+    "pilihan": [
+      "1 dan 2",
+      "1 dan 3",
+      "1 dan 4",
+      "2 dan 3"
+    ],
     "jawabanIndex": 1,
-    "pembahasan": "Luas permukaan kubus = 6s² karena kubus punya 6 sisi berbentuk persegi."
+    "pembahasan": "Jika rangkaian pada gambar dicoba dirangkai menjadi sebuah kubus, jaring-jaring yang memungkinkan adalah nomor (1) dan (3).",
+    "imagePath": "assets/images/soal/soal_16.png"
   },
   {
     "id": "kt_006",
-    "topikId": "2",
-    "topik": "Balok",
-    "pertanyaan": "Berapa banyak sisi yang dimiliki balok?",
-    "pilihan": ["4", "6", "8", "12"],
+    "topikId": "3",
+    "topik": "Prisma",
+    "pertanyaan": "Gambar di bawah ini merupakan jaring-jaring...",
+    "pilihan": [
+      "Kubus",
+      "Prisma",
+      "Limas",
+      "Kerucut"
+    ],
     "jawabanIndex": 1,
-    "pembahasan": "Balok memiliki 6 sisi, terdiri dari 3 pasang sisi yang berhadapan dan kongruen."
+    "pembahasan": "Jaring-jaring pada gambar merupakan jaring-jaring prisma, tepatnya prisma segitiga.",
+    "imagePath": "assets/images/soal/soal_18.png"
   },
   {
     "id": "kt_007",
-    "topikId": "2",
-    "topik": "Balok",
-    "pertanyaan": "Rumus volume balok adalah...",
-    "pilihan": ["p + l + t", "2(pl + pt + lt)", "p × l × t", "p × l"],
-    "jawabanIndex": 2,
-    "pembahasan": "Volume balok = p × l × t (panjang dikali lebar dikali tinggi)."
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Kubus merupakan suatu bangun yang dapat disebut juga sebagai...",
+    "pilihan": [
+      "Persegi empat",
+      "Tabung",
+      "Limas",
+      "Prisma"
+    ],
+    "jawabanIndex": 3,
+    "pembahasan": "Kubus dapat disebut sebagai prisma, yaitu prisma segiempat beraturan, karena bagian alas dan bagian atasnya memiliki bentuk dan ukuran yang sama."
   },
   {
     "id": "kt_008",
-    "topikId": "2",
-    "topik": "Balok",
-    "pertanyaan": "Rumus luas permukaan balok adalah...",
-    "pilihan": ["p × l × t", "2(pl + pt + lt)", "6s²", "pl + lt"],
-    "jawabanIndex": 1,
-    "pembahasan": "Luas permukaan balok = 2(pl + pt + lt)."
+    "topikId": "3",
+    "topik": "Prisma",
+    "pertanyaan": "Suatu prisma memiliki 36 buah rusuk dan 14 sisi. Bentuk alas prisma tersebut adalah...",
+    "pilihan": [
+      "Segi delapan belas",
+      "Segi tiga belas",
+      "Segi dua belas",
+      "Segi sembilan"
+    ],
+    "jawabanIndex": 2,
+    "pembahasan": "Prisma memiliki dua sisi sebagai alas dan atas. Dari 14 sisi, berarti terdapat 12 sisi tegak. Banyak sisi tegak prisma sama dengan banyak sisi pada alasnya, sehingga bentuk alas prisma adalah segi dua belas."
   },
   {
     "id": "kt_009",
-    "topikId": "2",
-    "topik": "Balok",
-    "pertanyaan": "Balok memiliki berapa rusuk?",
-    "pilihan": ["8", "10", "12", "6"],
-    "jawabanIndex": 2,
-    "pembahasan": "Balok memiliki 12 rusuk, terdiri dari 3 kelompok rusuk yang sejajar."
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Perhatikan gambar berikut. Pasangan rangkaian yang dapat membentuk jaring-jaring kubus adalah...",
+    "pilihan": [
+      "i dan ii",
+      "ii dan iii",
+      "iii dan iv",
+      "i dan iv"
+    ],
+    "jawabanIndex": 3,
+    "pembahasan": "Jika rangkaian pada gambar dicoba dirangkai menjadi sebuah kubus, jaring-jaring yang memungkinkan adalah nomor (i) dan (iv).",
+    "imagePath": "assets/images/soal/soal_22.png"
   },
   {
     "id": "kt_010",
-    "topikId": "3",
-    "topik": "Prisma",
-    "pertanyaan": "Prisma segitiga memiliki berapa sisi?",
-    "pilihan": ["3", "4", "5", "6"],
-    "jawabanIndex": 2,
-    "pembahasan": "Prisma segitiga memiliki 5 sisi: 2 segitiga (alas & tutup) + 3 persegi panjang."
+    "topikId": "2",
+    "topik": "Balok",
+    "pertanyaan": "Perhatikan gambar berikut. Agar terbentuk jaring-jaring balok, bidang yang harus dihilangkan adalah nomor...",
+    "pilihan": [
+      "1, 3, 8",
+      "1, 7, 9",
+      "2, 3, 8",
+      "2, 3, 9"
+    ],
+    "jawabanIndex": 1,
+    "pembahasan": "Jika susunan pada gambar dirangkai menjadi sebuah balok, bidang yang harus dihilangkan dari pilihan yang tersedia adalah bidang nomor 1, 7, dan 9.",
+    "imagePath": "assets/images/soal/soal_23.png"
   },
   {
     "id": "kt_011",
-    "topikId": "3",
-    "topik": "Prisma",
-    "pertanyaan": "Rumus volume prisma adalah...",
-    "pilihan": ["L.alas + t", "L.alas × t", "⅓ × L.alas × t", "2 × L.alas"],
+    "topikId": "1",
+    "topik": "Kubus",
+    "pertanyaan": "Perhatikan gambar berikut! Daerah yang diarsir adalah...",
+    "pilihan": [
+      "Diagonal ruang",
+      "Bidang diagonal",
+      "Diagonal frontal",
+      "Diagonal sisi"
+    ],
     "jawabanIndex": 1,
-    "pembahasan": "Volume prisma = Luas alas × tinggi prisma."
-  },
-  {
-    "id": "kt_012",
-    "topikId": "4",
-    "topik": "Limas",
-    "pertanyaan": "Limas segiempat memiliki berapa sisi segitiga?",
-    "pilihan": ["2", "3", "4", "5"],
-    "jawabanIndex": 2,
-    "pembahasan": "Limas segiempat memiliki 4 sisi segitiga sebagai sisi tegak."
-  },
-  {
-    "id": "kt_013",
-    "topikId": "4",
-    "topik": "Limas",
-    "pertanyaan": "Rumus volume limas adalah...",
-    "pilihan": ["L.alas × t", "½ × L.alas × t", "⅓ × L.alas × t", "2 × L.alas × t"],
-    "jawabanIndex": 2,
-    "pembahasan": "Volume limas = ⅓ × Luas alas × tinggi."
-  },
-  {
-    "id": "kt_014",
-    "topikId": "5",
-    "topik": "Tabung",
-    "pertanyaan": "Tabung memiliki berapa sisi lengkung?",
-    "pilihan": ["0", "1", "2", "3"],
-    "jawabanIndex": 1,
-    "pembahasan": "Tabung memiliki 1 sisi lengkung (selimut) dan 2 sisi datar berbentuk lingkaran."
-  },
-  {
-    "id": "kt_015",
-    "topikId": "5",
-    "topik": "Tabung",
-    "pertanyaan": "Rumus volume tabung adalah...",
-    "pilihan": ["π × r × t", "π × r² × t", "2π × r × t", "⅓ × π × r² × t"],
-    "jawabanIndex": 1,
-    "pembahasan": "Volume tabung = π × r² × t."
-  },
-  {
-    "id": "kt_016",
-    "topikId": "6",
-    "topik": "Kerucut",
-    "pertanyaan": "Bagian paling atas kerucut disebut...",
-    "pilihan": ["Rusuk", "Alas", "Titik puncak", "Selimut"],
-    "jawabanIndex": 2,
-    "pembahasan": "Bagian paling atas kerucut disebut titik puncak atau apex."
-  },
-  {
-    "id": "kt_017",
-    "topikId": "6",
-    "topik": "Kerucut",
-    "pertanyaan": "Rumus volume kerucut adalah...",
-    "pilihan": ["π × r² × t", "½ × π × r² × t", "⅓ × π × r² × t", "2 × π × r × t"],
-    "jawabanIndex": 2,
-    "pembahasan": "Volume kerucut = ⅓ × π × r² × t."
-  },
-  {
-    "id": "kt_018",
-    "topikId": "7",
-    "topik": "Bola",
-    "pertanyaan": "Bola memiliki berapa titik sudut?",
-    "pilihan": ["0", "1", "2", "Tak terhingga"],
-    "jawabanIndex": 0,
-    "pembahasan": "Bola tidak memiliki titik sudut, rusuk, maupun sisi datar."
-  },
-  {
-    "id": "kt_019",
-    "topikId": "7",
-    "topik": "Bola",
-    "pertanyaan": "Rumus volume bola adalah...",
-    "pilihan": ["π × r²", "4 × π × r²", "⅔ × π × r³", "4/3 × π × r³"],
-    "jawabanIndex": 3,
-    "pembahasan": "Volume bola = 4/3 × π × r³."
-  },
-  {
-    "id": "kt_020",
-    "topikId": "7",
-    "topik": "Bola",
-    "pertanyaan": "Rumus luas permukaan bola adalah...",
-    "pilihan": ["π × r²", "2 × π × r²", "4 × π × r²", "⅔ × π × r²"],
-    "jawabanIndex": 2,
-    "pembahasan": "Luas permukaan bola = 4 × π × r²."
+    "pembahasan": "Daerah yang diarsir merupakan bidang diagonal. Bidang diagonal adalah bidang yang dibentuk oleh diagonal bidang dan rusuk serta membagi bangun ruang menjadi dua bagian.",
+    "imagePath": "assets/images/soal/soal_24.png"
   }
 ]
