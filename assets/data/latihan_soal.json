@@ -8,7 +8,7 @@
     "jawabanBenar": 10.3923,
     "toleransi": 0.01,
     "rumus": "d = s√3",
-    "pembahasan": "Diagonal ruang kubus dapat dihitung dengan rumus d = s√3. Dengan panjang rusuk 6 cm, diperoleh AG = 6√3 cm. Melalui Teorema Pythagoras juga dapat diperoleh AG² = 6² + 6² + 6² = 108, sehingga AG = √108 = 6√3 cm ≈ 10,39 cm.",
+    "pembahasan": "Diagonal ruang kubus dapat dihitung dengan rumus d = s√3. Dengan panjang rusuk 6 cm, diperoleh AG = 6√3 cm. Melalui Teorema Pythagoras juga diperoleh AG² = 6² + 6² + 6² = 108, sehingga AG = √108 = 6√3 cm ≈ 10,39 cm.",
     "imagePath": "assets/images/soal/soal_01.png"
   },
   {
@@ -66,7 +66,7 @@
     "satuan": "cm²",
     "jawabanBenar": 384.0,
     "toleransi": 0.1,
-    "rumus": "s = jumlah rusuk ÷ 12, L = 6s²",
+    "rumus": "s = jumlah panjang rusuk ÷ 12, L = 6s²",
     "pembahasan": "Kubus mempunyai 12 rusuk yang sama panjang. Panjang satu rusuk = 96 ÷ 12 = 8 cm. Luas permukaan kubus = 6s² = 6 × 8² = 6 × 64 = 384 cm²."
   },
   {
@@ -78,7 +78,7 @@
     "jawabanBenar": 8.0,
     "toleransi": 0.1,
     "rumus": "L = 2(pl + pt + lt)",
-    "pembahasan": "Diketahui L = 516 cm², p = 15 cm, dan l = 6 cm. Gunakan L = 2(pl + pt + lt): 516 = 2(15 × 6 + 15t + 6t). Maka 258 = 90 + 21t, sehingga 168 = 21t. Jadi t = 168 ÷ 21 = 8 cm."
+    "pembahasan": "Diketahui L = 516 cm², p = 15 cm, dan l = 6 cm. Gunakan rumus luas permukaan balok: 516 = 2(15 × 6 + 15t + 6t). Maka 258 = 90 + 21t. Selanjutnya 168 = 21t, sehingga t = 168 ÷ 21 = 8 cm."
   },
   {
     "id": "ls_008",
@@ -89,7 +89,7 @@
     "jawabanBenar": 6.0,
     "toleransi": 0.1,
     "rumus": "V = L.alas × t",
-    "pembahasan": "Segitiga dengan sisi 3 cm, 4 cm, dan 5 cm adalah segitiga siku-siku dengan alas 3 cm dan tinggi 4 cm. Luas alas = ½ × 3 × 4 = 6 cm². Volume prisma = luas alas × tinggi prisma, sehingga 36 = 6 × t. Jadi tinggi prisma = 6 cm."
+    "pembahasan": "Segitiga dengan sisi 3 cm, 4 cm, dan 5 cm merupakan segitiga siku-siku, sehingga alas dan tinggi segitiganya adalah 3 cm dan 4 cm. Luas alas = ½ × 3 × 4 = 6 cm². Volume prisma = luas alas × tinggi prisma, sehingga 36 = 6 × t. Jadi tinggi prisma = 6 cm."
   },
   {
     "id": "ls_009",
@@ -100,7 +100,7 @@
     "jawabanBenar": 384.0,
     "toleransi": 0.1,
     "rumus": "L = L.alas + 4 × L.segitiga",
-    "pembahasan": "Pada segitiga siku-siku TPQ, TP = 8 cm dan TQ = 10 cm. Dengan Teorema Pythagoras diperoleh PQ = √(10² - 8²) = √36 = 6 cm. PQ merupakan setengah panjang sisi persegi, sehingga sisi alas = 12 cm. Luas alas = 12 × 12 = 144 cm². Luas empat sisi segitiga = 4 × (½ × 12 × 10) = 240 cm². Jadi luas permukaan limas = 144 + 240 = 384 cm².",
+    "pembahasan": "Pada segitiga siku-siku TPQ, TP = 8 cm dan TQ = 10 cm. Dengan Teorema Pythagoras diperoleh PQ = √(10² - 8²) = √36 = 6 cm. PQ merupakan setengah panjang sisi persegi, sehingga panjang sisi alas = 12 cm. Luas alas = 12 × 12 = 144 cm². Luas empat sisi segitiga = 4 × (½ × 12 × 10) = 240 cm². Jadi luas permukaan limas = 144 + 240 = 384 cm².",
     "imagePath": "assets/images/soal/soal_10.png"
   },
   {
@@ -112,7 +112,7 @@
     "jawabanBenar": 18000.0,
     "toleransi": 0.1,
     "rumus": "Jumlah bata = volume total monumen ÷ volume satu bata",
-    "pembahasan": "Monumen terdiri dari balok pada bagian bawah dan limas segiempat pada bagian atas. Volume masing-masing bagian dihitung kemudian dijumlahkan untuk memperoleh volume total monumen. Banyak bata ringan diperoleh dengan membagi volume total monumen dengan volume satu bata ringan. Berdasarkan ukuran yang diberikan pada soal, jumlah minimal bata ringan yang diperlukan adalah 18.000 buah.",
+    "pembahasan": "Monumen terdiri dari balok pada bagian bawah dan limas segiempat pada bagian atas. Volume kedua bagian dijumlahkan untuk memperoleh volume total monumen. Banyak bata ringan kemudian diperoleh dengan membagi volume total monumen dengan volume satu bata ringan. Berdasarkan ukuran pada soal, jumlah minimal bata ringan yang diperlukan adalah 18.000 buah.",
     "imagePath": "assets/images/soal/soal_12.png"
   },
   {
@@ -136,19 +136,19 @@
     "jawabanBenar": 1980.0,
     "toleransi": 0.1,
     "rumus": "L = panjang prisma × keliling segitiga × jumlah papan",
-    "pembahasan": "Penampang papan nama berbentuk segitiga siku-siku dengan sisi 5 cm dan 12 cm. Sisi miringnya adalah √(5² + 12²) = √169 = 13 cm. Karena bagian kiri dan kanan terbuka, karton hanya menutup tiga sisi tegak prisma. Luas satu papan = 22 × (5 + 12 + 13) = 22 × 30 = 660 cm². Untuk tiga papan, luas karton = 3 × 660 = 1980 cm².",
+    "pembahasan": "Penampang papan nama berbentuk segitiga siku-siku dengan sisi 5 cm dan 12 cm. Sisi miringnya = √(5² + 12²) = √169 = 13 cm. Karena bagian kiri dan kanan terbuka, karton hanya menutupi tiga sisi tegak prisma. Luas satu papan = 22 × (5 + 12 + 13) = 22 × 30 = 660 cm². Karena dibuat tiga papan, luas minimum karton = 3 × 660 = 1980 cm².",
     "imagePath": "assets/images/soal/soal_17.png"
   },
   {
     "id": "ls_013",
     "topikId": "2",
     "topik": "Balok",
-    "pertanyaan": "Perhatikan gambar mainan berbentuk balok yang tersusun dari kubus-kubus satuan kongruen. Jika seluruh permukaan balok dicat, berapa banyak kubus satuan yang terkena cat tepat pada dua sisinya saja?",
+    "pertanyaan": "Perhatikan gambar mainan berbentuk balok yang tersusun dari kubus-kubus satuan kongruen. Jika seluruh permukaan balok tersebut dicat, berapa banyak kubus satuan yang terkena cat tepat pada dua sisinya saja?",
     "satuan": "buah",
     "jawabanBenar": 28.0,
     "toleransi": 0.1,
     "rumus": "N = 4[(p - 2) + (l - 2) + (t - 2)]",
-    "pembahasan": "Kubus satuan yang terkena cat tepat pada dua sisi berada pada rusuk-rusuk balok, tetapi bukan pada sudut. Dari ukuran susunan kubus pada gambar, jumlah kubus pada bagian-bagian rusuk yang memenuhi kondisi tersebut adalah 28 buah.",
+    "pembahasan": "Kubus satuan yang terkena cat tepat pada dua sisi berada pada rusuk-rusuk balok, tetapi bukan pada titik sudut. Berdasarkan susunan kubus pada gambar, jumlah kubus satuan yang terkena cat tepat pada dua sisinya adalah 28 buah.",
     "imagePath": "assets/images/soal/soal_21.png"
   },
   {
