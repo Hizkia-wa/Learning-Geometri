@@ -172,14 +172,11 @@ class _FloatingMenuState extends State<_FloatingMenu>
 
   void _openKuis() {
     _closeMenu();
-
+    
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => KuisTeoriPage(
-          topikId: widget.materi.id,
-          namaTopik: widget.materi.judul,
-        ),
+        builder: (_) => const KuisTeoriPage(),
       ),
     );
   }

@@ -1,21 +1,35 @@
 import 'package:flutter/material.dart';
+
 import '../data/materi_data.dart';
-import 'latihan_soal_page.dart';
 import 'ai_solution_page.dart';
+import 'latihan_soal_page.dart';
 
 class LatihanTopikPage extends StatelessWidget {
   const LatihanTopikPage({super.key});
 
   static const Color primaryColor = Color(0xFF17AEBF);
 
+  static const Set<String> topikDenganLatihan = {
+    '1',
+    '2',
+    '3',
+    '4',
+  };
+
   @override
   Widget build(BuildContext context) {
+    final materiLatihan = daftarMateri
+        .where((materi) => topikDenganLatihan.contains(materi.id))
+        .toList();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF4F8FB),
       appBar: AppBar(
         title: const Text(
           'Latihan Soal',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
@@ -25,35 +39,44 @@ class LatihanTopikPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Sub-header
           Container(
             width: double.infinity,
             color: primaryColor,
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
             child: const Text(
-              'Pilih topik yang ingin kamu latih perhitungannya',
-              style: TextStyle(color: Colors.white70, fontSize: 13),
+              'Pilih materi yang ingin kamu latih',
+              style: TextStyle(
+                color: Colors.white70,
+                fontSize: 13,
+              ),
             ),
           ),
-
-          // AI Solver quick access button
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const AiSolutionPage()),
+                    MaterialPageRoute(
+                      builder: (_) => const AiSolutionPage(),
+                    ),
                   );
                 },
-                icon: const Icon(Icons.auto_awesome, size: 18),
-                label: const Text('Tanya AI tentang Geometri'),
+                icon: const Icon(
+                  Icons.auto_awesome,
+                  size: 18,
+                ),
+                label: const Text(
+                  'Tanya AI tentang Geometri',
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 14,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -62,15 +85,18 @@ class LatihanTopikPage extends StatelessWidget {
               ),
             ),
           ),
-
-          // List topik
           Expanded(
             child: ListView.builder(
+              physics: const ClampingScrollPhysics(),
               padding: const EdgeInsets.all(20),
-              itemCount: daftarMateri.length,
+              itemCount: materiLatihan.length,
               itemBuilder: (context, index) {
-                final materi = daftarMateri[index];
-                return _buildTopikCard(context, materi);
+                final materi = materiLatihan[index];
+
+                return _buildTopikCard(
+                  context,
+                  materi,
+                );
               },
             ),
           ),
@@ -79,16 +105,17 @@ class LatihanTopikPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTopikCard(BuildContext context, Materi materi) {
+  Widget _buildTopikCard(
+    BuildContext context,
+    Materi materi,
+  ) {
     final colors = [
       Colors.blue,
       Colors.orange,
       Colors.teal,
       Colors.purple,
-      Colors.redAccent,
-      Colors.indigo,
-      Colors.green,
     ];
+
     final colorIndex = (int.tryParse(materi.id) ?? 1) - 1;
     final color = colors[colorIndex % colors.length];
 
@@ -131,7 +158,11 @@ class LatihanTopikPage extends StatelessWidget {
                     color: color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Icon(Icons.calculate_rounded, color: color, size: 30),
+                  child: Icon(
+                    Icons.edit_note_rounded,
+                    color: color,
+                    size: 32,
+                  ),
                 ),
                 const SizedBox(width: 15),
                 Expanded(
@@ -147,8 +178,11 @@ class LatihanTopikPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        'Latihan soal hitungan ${materi.judul}',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                        'Latihan soal materi ${materi.judul}',
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),

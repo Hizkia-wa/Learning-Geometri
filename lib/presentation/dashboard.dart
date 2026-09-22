@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 import '../data/materi_data.dart';
 import '../services/activity_service.dart';
 import 'ai_solution_page.dart';
-import 'cube_3d_page.dart';
-import 'kuis_topik_page.dart';
+import 'kuis_teori_page.dart';
 import 'latihan_topik_page.dart';
 import 'materi_detail_page.dart';
 import 'materi_page.dart';
@@ -34,6 +33,7 @@ class _DashboardState extends State<Dashboard> {
 
   Future<void> _loadActivities() async {
     final activities = await ActivityService.getActivities();
+
     if (!mounted) return;
 
     setState(() {
@@ -80,7 +80,10 @@ class _DashboardState extends State<Dashboard> {
       height: MediaQuery.of(context).size.height * 0.35,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Dashboard.primaryColor, Color(0xFF128A99)],
+          colors: [
+            Dashboard.primaryColor,
+            Color(0xFF128A99),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -92,8 +95,6 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-
-
   Widget _buildGreeting() {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 25),
@@ -102,7 +103,10 @@ class _DashboardState extends State<Dashboard> {
         children: [
           Text(
             'Selamat Belajar,',
-            style: TextStyle(color: Colors.white70, fontSize: 16),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 16,
+            ),
           ),
           SizedBox(height: 4),
           Text(
@@ -116,7 +120,10 @@ class _DashboardState extends State<Dashboard> {
           SizedBox(height: 6),
           Text(
             'Pahami konsep bangun ruang secara interaktif.',
-            style: TextStyle(color: Colors.white70, fontSize: 12),
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 12,
+            ),
           ),
         ],
       ),
@@ -126,7 +133,10 @@ class _DashboardState extends State<Dashboard> {
   Widget _buildMainQuickActions(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+      padding: const EdgeInsets.symmetric(
+        vertical: 25,
+        horizontal: 10,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(26),
@@ -149,7 +159,9 @@ class _DashboardState extends State<Dashboard> {
                 Colors.blue,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const MateriPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const MateriPage(),
+                  ),
                 ).then((_) => _loadActivities()),
               ),
               _buildActionItem(
@@ -158,7 +170,9 @@ class _DashboardState extends State<Dashboard> {
                 Colors.teal,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const PetaKonsepPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const PetaKonsepPage(),
+                  ),
                 ),
               ),
               _buildActionItem(
@@ -167,7 +181,9 @@ class _DashboardState extends State<Dashboard> {
                 Colors.orange,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const KuisTopikPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const KuisTeoriPage(),
+                  ),
                 ).then((_) => _loadActivities()),
               ),
             ],
@@ -182,7 +198,9 @@ class _DashboardState extends State<Dashboard> {
                 Colors.redAccent,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const LatihanTopikPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const LatihanTopikPage(),
+                  ),
                 ).then((_) => _loadActivities()),
               ),
               _buildActionItem(
@@ -191,7 +209,9 @@ class _DashboardState extends State<Dashboard> {
                 Colors.purple,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const AiSolutionPage()),
+                  MaterialPageRoute(
+                    builder: (_) => const AiSolutionPage(),
+                  ),
                 ),
               ),
               _buildActionItem(
@@ -200,10 +220,12 @@ class _DashboardState extends State<Dashboard> {
                 Colors.indigo,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ArViewPage(
-                    title: 'Visual 3D AR',
-                    modelUrl: 'assets/cube/cubexm.glb',
-                  )),
+                  MaterialPageRoute(
+                    builder: (_) => const ArViewPage(
+                      title: 'Visual 3D AR',
+                      modelUrl: 'assets/cube/cubexm.glb',
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -233,7 +255,11 @@ class _DashboardState extends State<Dashboard> {
                 color: color.withValues(alpha: 0.11),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: color, size: 30),
+              child: Icon(
+                icon,
+                color: color,
+                size: 30,
+              ),
             ),
             const SizedBox(height: 10),
             Text(
@@ -255,24 +281,36 @@ class _DashboardState extends State<Dashboard> {
     return InkWell(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const ArViewPage(
-          title: 'Eksplorasi Kubus 3D',
-          modelUrl: 'assets/cube/cubexm.glb',
-        )),
+        MaterialPageRoute(
+          builder: (_) => const ArViewPage(
+            title: 'Eksplorasi Kubus 3D',
+            modelUrl: 'assets/cube/cubexm.glb',
+          ),
+        ),
       ),
       borderRadius: BorderRadius.circular(22),
       child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 22, 20, 18),
+        margin: const EdgeInsets.fromLTRB(
+          20,
+          22,
+          20,
+          18,
+        ),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           gradient: const LinearGradient(
-            colors: [Dashboard.secondaryColor, Colors.white],
+            colors: [
+              Dashboard.secondaryColor,
+              Colors.white,
+            ],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
           borderRadius: BorderRadius.circular(22),
           border: Border.all(
-            color: Dashboard.primaryColor.withValues(alpha: 0.22),
+            color: Dashboard.primaryColor.withValues(
+              alpha: 0.22,
+            ),
           ),
         ),
         child: Row(
@@ -281,7 +319,9 @@ class _DashboardState extends State<Dashboard> {
               width: 56,
               height: 56,
               decoration: BoxDecoration(
-                color: Dashboard.primaryColor.withValues(alpha: 0.12),
+                color: Dashboard.primaryColor.withValues(
+                  alpha: 0.12,
+                ),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: const Icon(
@@ -326,11 +366,15 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget _buildStartLearningSection(BuildContext context) {
+  Widget _buildStartLearningSection(
+    BuildContext context,
+  ) {
     final materiAwal = daftarMateri.first;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -347,7 +391,9 @@ class _DashboardState extends State<Dashboard> {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => MateriDetailPage(materi: materiAwal),
+                builder: (_) => MateriDetailPage(
+                  materi: materiAwal,
+                ),
               ),
             ).then((_) => _loadActivities()),
             borderRadius: BorderRadius.circular(18),
@@ -364,7 +410,9 @@ class _DashboardState extends State<Dashboard> {
                     width: 52,
                     height: 52,
                     decoration: BoxDecoration(
-                      color: Colors.blue.withValues(alpha: 0.11),
+                      color: Colors.blue.withValues(
+                        alpha: 0.11,
+                      ),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Icon(
@@ -376,7 +424,8 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
                       children: [
                         const Text(
                           'Mulai dari Kubus',
@@ -388,7 +437,8 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Pelajari konsep dasar bangun ruang dari materi pertama.',
+                          'Pelajari konsep dasar bangun ruang '
+                          'dari materi pertama.',
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey[600],
@@ -414,7 +464,12 @@ class _DashboardState extends State<Dashboard> {
 
   Widget _buildRecentActivitySection() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 22, 20, 0),
+      padding: const EdgeInsets.fromLTRB(
+        20,
+        22,
+        20,
+        0,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -428,14 +483,19 @@ class _DashboardState extends State<Dashboard> {
           ),
           const SizedBox(height: 12),
           if (_isLoadingActivity)
-            const Center(child: CircularProgressIndicator())
+            const Center(
+              child: CircularProgressIndicator(),
+            )
           else if (_activities.isEmpty)
             _buildEmptyActivityCard()
           else
             Column(
               children: _activities
                   .take(3)
-                  .map((activity) => _buildActivityItem(activity))
+                  .map(
+                    (activity) =>
+                        _buildActivityItem(activity),
+                  )
                   .toList(),
             ),
         ],
@@ -457,7 +517,9 @@ class _DashboardState extends State<Dashboard> {
             width: 52,
             height: 52,
             decoration: BoxDecoration(
-              color: Dashboard.primaryColor.withValues(alpha: 0.1),
+              color: Dashboard.primaryColor.withValues(
+                alpha: 0.1,
+              ),
               borderRadius: BorderRadius.circular(15),
             ),
             child: const Icon(
@@ -481,7 +543,8 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Mulai belajar untuk melihat riwayat aktivitas di sini.',
+                  'Mulai belajar untuk melihat riwayat '
+                  'aktivitas di sini.',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey[600],
@@ -496,7 +559,9 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget _buildActivityItem(ActivityItem activity) {
+  Widget _buildActivityItem(
+    ActivityItem activity,
+  ) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 10),
@@ -511,7 +576,9 @@ class _DashboardState extends State<Dashboard> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: _activityColor(activity.type).withValues(alpha: 0.12),
+              color: _activityColor(activity.type).withValues(
+                alpha: 0.12,
+              ),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(

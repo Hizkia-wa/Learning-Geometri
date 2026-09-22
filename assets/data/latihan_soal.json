@@ -3,6 +3,7 @@
     "id": "ls_001",
     "topikId": "1",
     "topik": "Kubus",
+    "tipe": "numerik",
     "pertanyaan": "Perhatikan gambar berikut! Jika panjang rusuk AB adalah 6 cm, maka panjang diagonal ruang AG adalah berapa? Masukkan jawaban dalam bentuk desimal.",
     "satuan": "cm",
     "jawabanBenar": 10.3923,
@@ -15,6 +16,7 @@
     "id": "ls_002",
     "topikId": "2",
     "topik": "Balok",
+    "tipe": "numerik",
     "pertanyaan": "Perhatikan balok berikut! Balok memiliki panjang 36 cm, lebar 16 cm, dan tinggi 12 cm. Berapakah panjang diagonal ruang DF? Masukkan jawaban dalam bentuk desimal.",
     "satuan": "cm",
     "jawabanBenar": 41.1825,
@@ -26,100 +28,184 @@
   {
     "id": "ls_003",
     "topikId": "3",
-    "topik": "Bangun Ruang Campuran",
+    "topik": "Prisma",
+    "tipe": "numerik",
     "pertanyaan": "Perhatikan gambar bangun ruang berikut! Leo memiliki kawat sepanjang 2,5 meter yang akan dibuat menjadi kerangka kubus, balok, limas persegi beraturan, dan prisma segitiga beraturan seperti pada gambar. Berapakah panjang kawat yang tidak terpakai?",
     "satuan": "cm",
     "jawabanBenar": 13.0,
     "toleransi": 0.1,
     "rumus": "Sisa kawat = kawat tersedia - total kawat seluruh kerangka",
-    "pembahasan": "Kawat tersedia 2,5 m = 250 cm. Kerangka kubus dengan rusuk 6 cm memerlukan 12 × 6 = 72 cm. Kerangka balok berukuran 8 cm, 5 cm, dan 2 cm memerlukan 4(8 + 5 + 2) = 60 cm. Kerangka limas persegi beraturan dengan rusuk alas 8 cm dan rusuk tegak 10 cm memerlukan 4 × 8 + 4 × 10 = 72 cm. Kerangka prisma segitiga beraturan dengan rusuk segitiga 3 cm dan panjang prisma 5 cm memerlukan 6 × 3 + 3 × 5 = 33 cm. Total kawat = 72 + 60 + 72 + 33 = 237 cm. Sisa kawat = 250 - 237 = 13 cm.",
+    "pembahasan": "Kawat tersedia adalah 2,5 m = 250 cm. Kawat yang diperlukan untuk kerangka kubus adalah 12 × 6 = 72 cm. Kerangka balok memerlukan 4(8 + 5 + 2) = 60 cm. Kerangka limas persegi beraturan memerlukan 4 × 8 + 4 × 10 = 72 cm. Kerangka prisma segitiga beraturan memerlukan 6 × 3 + 3 × 5 = 33 cm. Total kawat yang diperlukan adalah 72 + 60 + 72 + 33 = 237 cm. Jadi kawat yang tidak terpakai adalah 250 - 237 = 13 cm.",
     "imagePath": "assets/images/soal/soal_03.png"
   },
   {
     "id": "ls_004",
     "topikId": "2",
     "topik": "Balok",
-    "pertanyaan": "Disediakan kawat sepanjang 6 m yang akan dibuat menjadi kerangka balok berukuran 13 cm × 9 cm × 8 cm. Berapa banyak kerangka balok yang dapat dibuat?",
+    "tipe": "numerik",
+    "pertanyaan": "Disediakan kawat yang panjangnya 6 m, akan dibuat kerangka balok berukuran 13 cm × 9 cm × 8 cm. Berapa banyak kerangka balok yang dapat dibuat dari kawat tersebut?",
     "satuan": "buah",
     "jawabanBenar": 5.0,
     "toleransi": 0.1,
     "rumus": "K = 4(p + l + t)",
-    "pembahasan": "Panjang kawat untuk satu kerangka balok adalah 4(p + l + t) = 4(13 + 9 + 8) = 4 × 30 = 120 cm. Kawat yang tersedia 6 m = 600 cm. Banyak kerangka yang dapat dibuat = 600 ÷ 120 = 5. Jadi paling banyak dapat dibuat 5 kerangka balok."
+    "pembahasan": "Panjang kawat yang diperlukan untuk satu kerangka balok adalah 4(p + l + t) = 4(13 + 9 + 8) = 120 cm. Kawat yang tersedia adalah 6 m = 600 cm. Banyak kerangka yang dapat dibuat adalah 600 ÷ 120 = 5. Jadi paling banyak dapat dibuat 5 kerangka balok.",
+    "solutionImagePath": "assets/images/soal/pembahasan4.png"
   },
   {
     "id": "ls_005",
     "topikId": "4",
     "topik": "Limas",
-    "pertanyaan": "Perhatikan bangun yang terdiri dari balok dan limas berikut! Diketahui balok berukuran 12 cm × 12 cm × 6 cm. Jika tinggi limas 8 cm, berapakah luas permukaan seluruh bangun?",
+    "tipe": "numerik",
+    "pertanyaan": "Perhatikan bangun berikut yang terdiri dari balok dan limas! Diketahui balok berukuran 12 cm × 12 cm × 6 cm. Jika tinggi limas 8 cm, berapakah luas permukaan bangun tersebut?",
     "satuan": "cm²",
     "jawabanBenar": 672.0,
     "toleransi": 0.1,
     "rumus": "L = luas 4 segitiga limas + luas 5 sisi balok",
-    "pembahasan": "Tinggi sisi tegak limas diperoleh dengan Teorema Pythagoras: TP² = 6² + 8² = 100 sehingga TP = 10 cm. Luas empat segitiga pada limas = 4 × (½ × 12 × 10) = 240 cm². Luas lima sisi balok yang terlihat = 12 × 12 + 4(12 × 6) = 144 + 288 = 432 cm². Jadi luas seluruh permukaan bangun = 240 + 432 = 672 cm².",
-    "imagePath": "assets/images/soal/soal_05.png"
+    "pembahasan": "Permukaan bangun terdiri dari empat segitiga pada limas dan lima segiempat pada balok. Tinggi sisi tegak limas diperoleh menggunakan Teorema Pythagoras, yaitu TP² = 6² + 8² = 100 sehingga TP = 10 cm. Luas empat segitiga adalah 4 × (½ × 12 × 10) = 240 cm². Luas lima segiempat pada balok adalah 12 × 12 + 4(12 × 6) = 432 cm². Jadi luas permukaan seluruh bangun adalah 240 + 432 = 672 cm².",
+    "imagePath": "assets/images/soal/soal_05.png",
+    "solutionImagePath": "assets/images/soal/pembahasan5.png"
   },
   {
     "id": "ls_006",
+    "topikId": "3",
+    "topik": "Prisma",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Aku adalah bangun ruang yang memiliki 5 sisi, 9 rusuk, dan 6 titik sudut. Aku adalah...",
+    "satuan": "",
+    "pilihan": [
+      "Prisma segiempat",
+      "Prisma segitiga",
+      "Limas segiempat",
+      "Limas segitiga"
+    ],
+    "jawabanIndex": 1,
+    "rumus": "",
+    "pembahasan": "Dari informasi pada soal, bangun ruang yang paling sesuai adalah prisma segitiga. Prisma segitiga memiliki 5 sisi, 9 rusuk, dan 6 titik sudut.",
+    "imagePath": "assets/images/soal/soal_06.png"
+  },
+  {
+    "id": "ls_007",
     "topikId": "1",
     "topik": "Kubus",
+    "tipe": "numerik",
     "pertanyaan": "Jumlah panjang seluruh rusuk sebuah kubus adalah 96 cm. Berapakah luas permukaan kubus tersebut?",
     "satuan": "cm²",
     "jawabanBenar": 384.0,
     "toleransi": 0.1,
     "rumus": "s = jumlah panjang rusuk ÷ 12, L = 6s²",
-    "pembahasan": "Kubus mempunyai 12 rusuk yang sama panjang. Panjang satu rusuk = 96 ÷ 12 = 8 cm. Luas permukaan kubus = 6s² = 6 × 8² = 6 × 64 = 384 cm²."
+    "pembahasan": "Kubus mempunyai 12 rusuk yang sama panjang. Jika jumlah panjang seluruh rusuk adalah 96 cm, maka panjang satu rusuk = 96 ÷ 12 = 8 cm. Luas permukaan kubus = 6s² = 6 × 8² = 384 cm²."
   },
   {
-    "id": "ls_007",
+    "id": "ls_008",
     "topikId": "2",
     "topik": "Balok",
+    "tipe": "numerik",
     "pertanyaan": "Suatu balok memiliki luas permukaan 516 cm². Jika panjang dan lebar balok masing-masing 15 cm dan 6 cm, berapakah tinggi balok tersebut?",
     "satuan": "cm",
     "jawabanBenar": 8.0,
     "toleransi": 0.1,
     "rumus": "L = 2(pl + pt + lt)",
-    "pembahasan": "Diketahui L = 516 cm², p = 15 cm, dan l = 6 cm. Gunakan rumus luas permukaan balok: 516 = 2(15 × 6 + 15t + 6t). Maka 258 = 90 + 21t. Selanjutnya 168 = 21t, sehingga t = 168 ÷ 21 = 8 cm."
+    "pembahasan": "Diketahui luas permukaan balok 516 cm², panjang 15 cm, dan lebar 6 cm. Dengan rumus 516 = 2(15 × 6 + 15t + 6t), diperoleh 258 = 90 + 21t. Maka 168 = 21t sehingga t = 8 cm."
   },
   {
-    "id": "ls_008",
+    "id": "ls_009",
     "topikId": "3",
     "topik": "Prisma",
+    "tipe": "numerik",
     "pertanyaan": "Alas sebuah prisma berbentuk segitiga siku-siku dengan panjang sisi 3 cm, 4 cm, dan 5 cm. Jika volume prisma adalah 36 cm³, berapakah tinggi prisma tersebut?",
     "satuan": "cm",
     "jawabanBenar": 6.0,
     "toleransi": 0.1,
     "rumus": "V = L.alas × t",
-    "pembahasan": "Segitiga dengan sisi 3 cm, 4 cm, dan 5 cm merupakan segitiga siku-siku, sehingga alas dan tinggi segitiganya adalah 3 cm dan 4 cm. Luas alas = ½ × 3 × 4 = 6 cm². Volume prisma = luas alas × tinggi prisma, sehingga 36 = 6 × t. Jadi tinggi prisma = 6 cm."
-  },
-  {
-    "id": "ls_009",
-    "topikId": "4",
-    "topik": "Limas",
-    "pertanyaan": "Perhatikan gambar limas T.ABCD berikut! Tinggi limas adalah 8 cm dan tinggi sisi tegaknya adalah 10 cm. Jika alas berbentuk persegi, berapakah luas permukaan limas?",
-    "satuan": "cm²",
-    "jawabanBenar": 384.0,
-    "toleransi": 0.1,
-    "rumus": "L = L.alas + 4 × L.segitiga",
-    "pembahasan": "Pada segitiga siku-siku TPQ, TP = 8 cm dan TQ = 10 cm. Dengan Teorema Pythagoras diperoleh PQ = √(10² - 8²) = √36 = 6 cm. PQ merupakan setengah panjang sisi persegi, sehingga panjang sisi alas = 12 cm. Luas alas = 12 × 12 = 144 cm². Luas empat sisi segitiga = 4 × (½ × 12 × 10) = 240 cm². Jadi luas permukaan limas = 144 + 240 = 384 cm².",
-    "imagePath": "assets/images/soal/soal_10.png"
+    "pembahasan": "Segitiga dengan panjang sisi 3 cm, 4 cm, dan 5 cm merupakan segitiga siku-siku. Luas alas = ½ × 3 × 4 = 6 cm². Volume prisma = luas alas × tinggi prisma, sehingga 36 = 6 × t. Jadi tinggi prisma adalah 6 cm."
   },
   {
     "id": "ls_010",
     "topikId": "4",
     "topik": "Limas",
+    "tipe": "numerik",
+    "pertanyaan": "Perhatikan gambar berikut! Sebuah limas T.ABCD memiliki tinggi 8 cm dan tinggi sisi tegak 10 cm. Jika alasnya berbentuk persegi, berapakah luas permukaan limas tersebut?",
+    "satuan": "cm²",
+    "jawabanBenar": 384.0,
+    "toleransi": 0.1,
+    "rumus": "L = L.alas + 4 × L.segitiga",
+    "pembahasan": "Luas permukaan limas segiempat adalah luas alas ditambah luas empat sisi segitiga. Pada segitiga siku-siku TPQ, TP = 8 cm dan TQ = 10 cm. Dengan Teorema Pythagoras diperoleh PQ = √(10² - 8²) = 6 cm. Karena PQ merupakan setengah sisi persegi, panjang sisi alas adalah 12 cm. Luas alas = 12 × 12 = 144 cm² dan luas empat segitiga = 4 × (½ × 12 × 10) = 240 cm². Jadi luas permukaan limas = 144 + 240 = 384 cm².",
+    "imagePath": "assets/images/soal/soal_10.png"
+  },
+  {
+    "id": "ls_011",
+    "topikId": "1",
+    "topik": "Kubus",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan pernyataan berikut ini! (1) Rusuk kubus berukuran sama panjang. (2) Diagonal bidang/sisi sama panjang. (3) Sisi kubus berbentuk persegi panjang. (4) Diagonal bidang sama besar dengan diagonal ruang. Berdasarkan pernyataan di atas, sifat kubus ditunjukkan oleh pernyataan nomor...",
+    "satuan": "",
+    "pilihan": [
+      "1 dan 2",
+      "1 dan 3",
+      "2 dan 4",
+      "3 dan 4"
+    ],
+    "jawabanIndex": 0,
+    "rumus": "",
+    "pembahasan": "Pernyataan yang tepat untuk mewakili sifat kubus adalah (1) rusuk kubus berukuran sama panjang dan (2) diagonal bidang atau sisi sama panjang. Jadi pilihan yang sesuai adalah A, yaitu 1 dan 2."
+  },
+  {
+    "id": "ls_012",
+    "topikId": "4",
+    "topik": "Limas",
+    "tipe": "numerik",
     "pertanyaan": "Dalam pembangunan sebuah monumen peringatan, kontraktor menggunakan bata ringan berbentuk balok untuk menyusun bagian dalam monumen. Berdasarkan ukuran monumen dan bata ringan pada gambar, berapakah jumlah minimal bata ringan yang diperlukan jika susunan dianggap rapat tanpa celah?",
     "satuan": "buah",
     "jawabanBenar": 18000.0,
     "toleransi": 0.1,
     "rumus": "Jumlah bata = volume total monumen ÷ volume satu bata",
-    "pembahasan": "Monumen terdiri dari balok pada bagian bawah dan limas segiempat pada bagian atas. Volume kedua bagian dijumlahkan untuk memperoleh volume total monumen. Banyak bata ringan kemudian diperoleh dengan membagi volume total monumen dengan volume satu bata ringan. Berdasarkan ukuran pada soal, jumlah minimal bata ringan yang diperlukan adalah 18.000 buah.",
+    "pembahasan": "Monumen terdiri dari dua bangun, yaitu balok pada bagian bawah dan limas segiempat pada bagian atas. Volume kedua bagian dijumlahkan untuk memperoleh volume total monumen. Banyak minimal bata ringan diperoleh dengan membagi volume total monumen dengan volume satu bata ringan. Berdasarkan data pada soal, jumlah minimal bata ringan yang diperlukan adalah 18.000 buah.",
     "imagePath": "assets/images/soal/soal_12.png"
   },
   {
-    "id": "ls_011",
+    "id": "ls_013",
+    "topikId": "4",
+    "topik": "Limas",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan gambar berikut! Limas T.ABCD mempunyai alas persegi berukuran 12 cm dan tinggi 8 cm. Berdasarkan informasi tersebut, tentukan pasangan pernyataan yang benar.",
+    "satuan": "",
+    "pilihan": [
+      "Pernyataan 1 dan 2",
+      "Pernyataan 1 dan 3",
+      "Pernyataan 2 dan 3",
+      "Pernyataan 2 dan 4"
+    ],
+    "jawabanIndex": 3,
+    "rumus": "",
+    "pembahasan": "Volume limas 576 cm³ adalah salah karena volume sebenarnya = ⅓ × 12 × 12 × 8 = 384 cm³. Panjang TE = 10 cm adalah benar. Luas segitiga TAB = 48 cm² adalah salah. Luas seluruh permukaan limas = 384 cm² adalah benar. Jadi pernyataan yang benar adalah pernyataan 2 dan 4.",
+    "imagePath": "assets/images/soal/soal_13.png",
+    "solutionImagePath": "assets/images/soal/pembahasan13.png"
+  },
+  {
+    "id": "ls_014",
+    "topikId": "1",
+    "topik": "Kubus",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan gambar kubus berikut! Bidang diagonal yang tegak lurus dengan BCHE adalah...",
+    "satuan": "",
+    "pilihan": [
+      "Bidang ABGH",
+      "Bidang ADGF",
+      "Bidang CDEF",
+      "Bidang ACGE"
+    ],
+    "jawabanIndex": 1,
+    "rumus": "",
+    "pembahasan": "Bidang diagonal yang tegak lurus dengan BCHE adalah bidang ADGF, seperti ditunjukkan pada gambar pembahasan.",
+    "imagePath": "assets/images/soal/soal_14.png",
+    "solutionImagePath": "assets/images/soal/pembahasan14.png"
+  },
+  {
+    "id": "ls_015",
     "topikId": "2",
     "topik": "Balok",
-    "pertanyaan": "Perhatikan desain kolam renang pada gambar. Berapakah volume air yang dapat memenuhi kolam tersebut?",
+    "tipe": "numerik",
+    "pertanyaan": "Perhatikan desain kolam renang pada gambar! Berapakah volume air di dalam kolam tersebut?",
     "satuan": "m³",
     "jawabanBenar": 1312.5,
     "toleransi": 0.1,
@@ -128,39 +214,166 @@
     "imagePath": "assets/images/soal/soal_15.png"
   },
   {
-    "id": "ls_012",
+    "id": "ls_016",
+    "topikId": "1",
+    "topik": "Kubus",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan empat macam rangkaian enam bujur sangkar pada gambar. Pasangan yang merupakan jaring-jaring kubus adalah...",
+    "satuan": "",
+    "pilihan": [
+      "1 dan 2",
+      "1 dan 3",
+      "1 dan 4",
+      "2 dan 3"
+    ],
+    "jawabanIndex": 1,
+    "rumus": "",
+    "pembahasan": "Jika rangkaian pada gambar dicoba dirangkai menjadi sebuah kubus, rangkaian yang dapat membentuk kubus adalah nomor (1) dan (3). Jadi pilihan yang sesuai adalah B.",
+    "imagePath": "assets/images/soal/soal_16.png"
+  },
+  {
+    "id": "ls_017",
     "topikId": "3",
     "topik": "Prisma",
+    "tipe": "numerik",
     "pertanyaan": "Indra akan membuat tiga buah papan nama dari kertas karton yang bagian kiri dan kanannya terbuka seperti tampak pada gambar. Berapakah luas minimum karton yang diperlukan?",
     "satuan": "cm²",
     "jawabanBenar": 1980.0,
     "toleransi": 0.1,
     "rumus": "L = panjang prisma × keliling segitiga × jumlah papan",
-    "pembahasan": "Penampang papan nama berbentuk segitiga siku-siku dengan sisi 5 cm dan 12 cm. Sisi miringnya = √(5² + 12²) = √169 = 13 cm. Karena bagian kiri dan kanan terbuka, karton hanya menutupi tiga sisi tegak prisma. Luas satu papan = 22 × (5 + 12 + 13) = 22 × 30 = 660 cm². Karena dibuat tiga papan, luas minimum karton = 3 × 660 = 1980 cm².",
+    "pembahasan": "Papan nama berbentuk prisma segitiga dengan bagian kiri dan kanan terbuka. Penampangnya merupakan segitiga siku-siku dengan sisi 5 cm dan 12 cm. Sisi miringnya = √(5² + 12²) = 13 cm. Luas karton untuk satu papan = 22 × (5 + 12 + 13) = 660 cm². Untuk tiga papan diperlukan 3 × 660 = 1980 cm².",
     "imagePath": "assets/images/soal/soal_17.png"
   },
   {
-    "id": "ls_013",
+    "id": "ls_018",
+    "topikId": "3",
+    "topik": "Prisma",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan gambar berikut! Gambar tersebut merupakan jaring-jaring...",
+    "satuan": "",
+    "pilihan": [
+      "Kubus",
+      "Prisma",
+      "Limas",
+      "Kerucut"
+    ],
+    "jawabanIndex": 1,
+    "rumus": "",
+    "pembahasan": "Dari gambar yang ditampilkan, jaring-jaring tersebut merupakan jaring-jaring prisma, tepatnya prisma segitiga. Jadi pilihan yang sesuai adalah B, Prisma.",
+    "imagePath": "assets/images/soal/soal_18.png"
+  },
+  {
+    "id": "ls_019",
+    "topikId": "1",
+    "topik": "Kubus",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Kubus merupakan suatu bangun yang dapat disebut juga sebagai...",
+    "satuan": "",
+    "pilihan": [
+      "Persegi empat",
+      "Tabung",
+      "Limas",
+      "Prisma"
+    ],
+    "jawabanIndex": 3,
+    "rumus": "",
+    "pembahasan": "Kubus dapat disebut sebagai prisma, yaitu prisma segiempat beraturan, karena bagian alas dan bagian atasnya sama dan sejajar. Jadi pilihan yang sesuai adalah D, Prisma."
+  },
+  {
+    "id": "ls_020",
+    "topikId": "3",
+    "topik": "Prisma",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Suatu prisma memiliki 36 buah rusuk dan 14 sisi. Bentuk alas prisma tersebut adalah...",
+    "satuan": "",
+    "pilihan": [
+      "Segi delapan belas",
+      "Segi tiga belas",
+      "Segi dua belas",
+      "Segi sembilan"
+    ],
+    "jawabanIndex": 2,
+    "rumus": "",
+    "pembahasan": "Prisma memiliki alas dan atas yang sama. Dari 14 sisi, dua sisi merupakan alas dan atas sehingga terdapat 12 sisi tegak. Karena terdapat 12 sisi tegak, bentuk alas prisma adalah segi dua belas. Jadi pilihan yang sesuai adalah C."
+  },
+  {
+    "id": "ls_021",
     "topikId": "2",
     "topik": "Balok",
+    "tipe": "numerik",
     "pertanyaan": "Perhatikan gambar mainan berbentuk balok yang tersusun dari kubus-kubus satuan kongruen. Jika seluruh permukaan balok tersebut dicat, berapa banyak kubus satuan yang terkena cat tepat pada dua sisinya saja?",
     "satuan": "buah",
     "jawabanBenar": 28.0,
     "toleransi": 0.1,
-    "rumus": "N = 4[(p - 2) + (l - 2) + (t - 2)]",
-    "pembahasan": "Kubus satuan yang terkena cat tepat pada dua sisi berada pada rusuk-rusuk balok, tetapi bukan pada titik sudut. Berdasarkan susunan kubus pada gambar, jumlah kubus satuan yang terkena cat tepat pada dua sisinya adalah 28 buah.",
+    "rumus": "Hitung kubus pada rusuk yang bukan merupakan kubus sudut",
+    "pembahasan": "Kubus satuan yang terkena cat tepat pada dua sisi adalah kubus yang berada pada rusuk-rusuk balok, tetapi tidak berada tepat pada titik sudut. Berdasarkan susunan kubus pada gambar, jumlah keseluruhannya adalah 28 kubus satuan.",
     "imagePath": "assets/images/soal/soal_21.png"
   },
   {
-    "id": "ls_014",
+    "id": "ls_022",
+    "topikId": "1",
+    "topik": "Kubus",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan gambar berikut! Pasangan gambar yang merupakan jaring-jaring kubus adalah...",
+    "satuan": "",
+    "pilihan": [
+      "i dan ii",
+      "ii dan iii",
+      "iii dan iv",
+      "i dan iv"
+    ],
+    "jawabanIndex": 3,
+    "rumus": "",
+    "pembahasan": "Jika jaring-jaring pada gambar dicoba dirangkai menjadi sebuah kubus, yang memungkinkan membentuk kubus adalah jaring-jaring nomor (i) dan (iv). Jadi pilihan yang sesuai adalah D.",
+    "imagePath": "assets/images/soal/soal_22.png"
+  },
+  {
+    "id": "ls_023",
+    "topikId": "2",
+    "topik": "Balok",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan gambar berikut! Agar terbentuk jaring-jaring balok, bidang yang harus dihilangkan adalah nomor...",
+    "satuan": "",
+    "pilihan": [
+      "1, 3, 8",
+      "1, 7, 9",
+      "2, 3, 8",
+      "2, 3, 9"
+    ],
+    "jawabanIndex": 1,
+    "rumus": "",
+    "pembahasan": "Jika susunan bidang pada gambar dirangkai menjadi sebuah balok, bidang yang perlu dihilangkan adalah bidang nomor 1, 7, dan 9. Jadi pilihan yang sesuai adalah B.",
+    "imagePath": "assets/images/soal/soal_23.png"
+  },
+  {
+    "id": "ls_024",
+    "topikId": "1",
+    "topik": "Kubus",
+    "tipe": "pilihan_ganda",
+    "pertanyaan": "Perhatikan gambar berikut! Daerah yang diarsir adalah...",
+    "satuan": "",
+    "pilihan": [
+      "Diagonal ruang",
+      "Bidang diagonal",
+      "Diagonal frontal",
+      "Diagonal sisi"
+    ],
+    "jawabanIndex": 1,
+    "rumus": "",
+    "pembahasan": "Berdasarkan gambar, daerah yang diarsir adalah bidang diagonal. Bidang diagonal adalah bidang yang dibentuk oleh diagonal bidang dan rusuk serta membagi bangun ruang menjadi dua bagian. Jadi pilihan yang sesuai adalah B, Bidang diagonal.",
+    "imagePath": "assets/images/soal/soal_24.png"
+  },
+  {
+    "id": "ls_025",
     "topikId": "3",
     "topik": "Prisma",
+    "tipe": "numerik",
     "pertanyaan": "Perhatikan gambar prisma trapesium siku-siku berikut! Berapakah luas permukaan prisma tersebut?",
     "satuan": "cm²",
     "jawabanBenar": 1088.0,
     "toleransi": 0.1,
     "rumus": "L = 2 × L.trapesium + luas seluruh sisi tegak",
-    "pembahasan": "Sisi miring yang belum diketahui diperoleh dengan Teorema Pythagoras: √(6² + 8²) = √100 = 10 cm. Luas dua alas trapesium = 2 × [½ × (16 + 10) × 8] = 208 cm². Luas sisi-sisi tegak adalah 20 × 8 = 160 cm², 20 × 10 = 200 cm², 20 × 10 = 200 cm², dan 20 × 16 = 320 cm². Jadi luas permukaan prisma = 208 + 160 + 200 + 200 + 320 = 1088 cm².",
+    "pembahasan": "Sisi miring yang belum diketahui diperoleh menggunakan Teorema Pythagoras, yaitu √(6² + 8²) = 10 cm. Luas dua alas trapesium = 2 × [½ × (16 + 10) × 8] = 208 cm². Luas sisi-sisi tegak adalah 20 × 8 = 160 cm², 20 × 10 = 200 cm², 20 × 10 = 200 cm², dan 20 × 16 = 320 cm². Jadi luas permukaan prisma = 208 + 160 + 200 + 200 + 320 = 1088 cm².",
     "imagePath": "assets/images/soal/soal_25.png"
   }
 ]
