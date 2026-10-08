@@ -585,10 +585,7 @@ class _PetaKonsepPageState extends State<PetaKonsepPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => KuisTeoriPage(
-                        topikId: topic.id,
-                        namaTopik: topic.title,
-                      ),
+                      builder: (_) => const KuisTeoriPage(),
                     ),
                   );
                 },

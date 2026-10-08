@@ -6,9 +6,6 @@ class SoalKuis {
   final List<String> pilihan;
   final int jawabanIndex;
   final String pembahasan;
-
-  // Gambar soal bersifat opsional.
-  // Jika null atau kosong, soal hanya menampilkan teks.
   final String? imagePath;
 
   const SoalKuis({
@@ -29,13 +26,21 @@ class SoalKuis {
       topik: json['topik']?.toString() ?? '',
       pertanyaan: json['pertanyaan']?.toString() ?? '',
       pilihan: List<String>.from(
-        (json['pilihan'] ?? []).map((item) => item.toString()),
+        (json['pilihan'] ?? []).map(
+          (item) => item.toString(),
+        ),
       ),
       jawabanIndex: json['jawabanIndex'] is int
           ? json['jawabanIndex']
-          : int.tryParse(json['jawabanIndex']?.toString() ?? '') ?? 0,
+          : int.tryParse(
+                json['jawabanIndex']?.toString() ?? '',
+              ) ??
+              0,
       pembahasan: json['pembahasan']?.toString() ?? '',
       imagePath: json['imagePath']?.toString(),
     );
   }
+
+  bool get memilikiGambar =>
+      imagePath != null && imagePath!.trim().isNotEmpty;
 }
