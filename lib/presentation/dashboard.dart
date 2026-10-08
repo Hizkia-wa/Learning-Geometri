@@ -4,13 +4,12 @@ import 'package:flutter/services.dart';
 import '../data/materi_data.dart';
 import '../services/activity_service.dart';
 import 'ai_solution_page.dart';
-import 'cube_3d_page.dart';
+import 'camera_ai_page.dart';
 import 'kuis_topik_page.dart';
 import 'latihan_topik_page.dart';
 import 'materi_detail_page.dart';
 import 'materi_page.dart';
 import 'peta_konsep_page.dart';
-import 'ar_view_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -195,15 +194,12 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               _buildActionItem(
-                Icons.view_in_ar_rounded,
-                'Visual 3D',
+                Icons.center_focus_strong_rounded,
+                'Kamera AI',
                 Colors.indigo,
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ArViewPage(
-                    title: 'Visual 3D AR',
-                    modelUrl: 'assets/cube/cubexm.glb',
-                  )),
+                  MaterialPageRoute(builder: (_) => const CameraAiPage()),
                 ),
               ),
             ],
@@ -255,10 +251,7 @@ class _DashboardState extends State<Dashboard> {
     return InkWell(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const ArViewPage(
-          title: 'Eksplorasi Kubus 3D',
-          modelUrl: 'assets/cube/cubexm.glb',
-        )),
+        MaterialPageRoute(builder: (_) => const CameraAiPage()),
       ),
       borderRadius: BorderRadius.circular(22),
       child: Container(
@@ -285,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: const Icon(
-                Icons.view_in_ar_rounded,
+                Icons.camera_enhance_rounded,
                 color: Dashboard.primaryColor,
                 size: 34,
               ),
@@ -296,7 +289,7 @@ class _DashboardState extends State<Dashboard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Eksplorasi Kubus 3D',
+                    'Kamera AI & AR Bangun Ruang',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -305,7 +298,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    'Lihat dan putar objek kubus secara interaktif.',
+                    'Pindai objek sekitar atau amati model 3D (Kubus, Balok, Tabung, Kerucut, Limas, Bola).',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey[700],

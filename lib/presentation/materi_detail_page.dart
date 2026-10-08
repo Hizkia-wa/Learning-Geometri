@@ -3,7 +3,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../data/materi_data.dart';
 import '../services/activity_service.dart';
-import 'cube_3d_page.dart';
+import 'camera_ai_page.dart';
 import 'kuis_teori_page.dart';
 import 'latihan_soal_page.dart';
 
@@ -190,7 +190,7 @@ class _FloatingMenuState extends State<_FloatingMenu>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const Cube3DPage(),
+        builder: (_) => CameraAiPage(initialShape: widget.materi.judul),
       ),
     );
   }
@@ -201,7 +201,7 @@ class _FloatingMenuState extends State<_FloatingMenu>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const ARPage(),
+        builder: (_) => CameraAiPage(initialShape: widget.materi.judul),
       ),
     );
   }
